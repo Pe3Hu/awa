@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv606sb36xeso"]
+
+[ext_resource type="PackedScene" uid="uid://wvbvvucr7xla" path="res://entities/slot/slot.tscn" id="1_y0xau"]
+[ext_resource type="Script" path="res://entities/slot/compartment/slot_compartment.gd" id="2_8jrau"]
+
+[node name="SlotCompartment" instance=ExtResource("1_y0xau")]
+script = ExtResource("2_8jrau")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://wvbvvucr7xla"]
+
+[ext_resource type="Script" path="res://entities/slot/slot.gd" id="1_kym3r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_270pf"]
+
+[node name="Slot" type="PanelContainer"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_270pf")
+script = ExtResource("1_kym3r")

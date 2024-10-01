@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhhwgsnlm0bqs"]
+
+[ext_resource type="PackedScene" uid="uid://dmtv5egd6dmj7" path="res://entities/board/board.tscn" id="1_qrunf"]
+[ext_resource type="Script" path="res://entities/board/convoy/board_convoy.gd" id="2_ggsi7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8e5mx"]
+bg_color = Color(0.826246, 0.476606, 0.588896, 1)
+
+[node name="BoardConvoy" instance=ExtResource("1_qrunf")]
+theme_override_styles/panel = SubResource("StyleBoxFlat_8e5mx")
+script = ExtResource("2_ggsi7")
+
+[node name="Grid" parent="HBox" index="0"]
+columns = 5
