@@ -12,5 +12,5 @@ class_name TokenCompartment extends Token
 	#var a = %Value
 	#
 func update_value() -> void:
-	var a = %Value
+	#var a = %Value
 	%Value.text = str(resource.value)

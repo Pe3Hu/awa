@@ -1,0 +1,81 @@
+[
+ {
+  "title": "analysis",
+  "network": 7,
+  "stealth": 3
+ },
+ {
+  "title": "hitch",
+  "network": 2,
+  "payload": 8
+ },
+ {
+  "title": "assist",
+  "network": 5,
+  "energy": 5
+ },
+ {
+  "title": "contraband",
+  "speed": 2,
+  "payload": 2,
+  "stealth": 6
+ },
+ {
+  "title": "caravan",
+  "speed": 2,
+  "payload": 5,
+  "barrier": 3
+ },
+ {
+  "title": "express",
+  "speed": 7,
+  "payload": 3
+ },
+ {
+  "title": "evacuation",
+  "payload": 2,
+  "barrier": 8
+ },
+ {
+  "title": "escort",
+  "speed": 2,
+  "barrier": 4,
+  "firepower": 4
+ },
+ {
+  "title": "recharge",
+  "energy": 6,
+  "speed": 4
+ },
+ {
+  "title": "hunt",
+  "speed": 3,
+  "firepower": 7
+ },
+ {
+  "title": "assault",
+  "energy": 3,
+  "barrier": 2,
+  "firepower": 5
+ },
+ {
+  "title": "elimination",
+  "firepower": 6,
+  "stealth": 4
+ },
+ {
+  "title": "opening",
+  "network": 3,
+  "hack": 7
+ },
+ {
+  "title": "disconnection",
+  "energy": 2,
+  "hack": 8
+ },
+ {
+  "title": "theft",
+  "hack": 5,
+  "stealth": 5
+ }
+]

@@ -27,6 +27,8 @@ func init_num() -> void:
 	
 func init_dict() -> void:
 	init_pattern()
+	init_wagon()
+	init_contract()
 	
 func init_pattern() -> void:
 	dict.pattern = {}
@@ -69,6 +71,56 @@ func init_pattern() -> void:
 			dict.pattern.size[pattern.size] = []
 	
 		dict.pattern.size[pattern.size].append(pattern.index)
+	
+func init_wagon() -> void:
+	dict.wagon = {}
+	dict.wagon.title = {}
+	dict.wagon.size = {}
+	var exceptions = ["title", "size"]
+	
+	var path = "res://entities/board/wagon/wagon.json"
+	var array = load_data(path)
+	
+	for wagon in array:
+		var data = {}
+		data.aspects = {}
+		data.size = int(wagon.size)
+		
+		for key in wagon:
+			if !exceptions.has(key):
+				data.aspects[key] = wagon[key]
+		
+		dict.wagon.title[wagon.title] = data
+		
+		if !dict.wagon.size.has(data.size):
+			dict.wagon.size[data.size] = []
+	
+		dict.wagon.size[data.size].append(wagon.title)
+	
+func init_contract() -> void:
+	dict.contract = {}
+	dict.contract.title = {}
+	dict.contract.aspect = {}
+	var exceptions = ["title"]
+	
+	var path = "res://entities/board/convoy/contract.json"
+	var array = load_data(path)
+	
+	for contract in array:
+		var data = {}
+		data.aspects = {}
+		
+		for key in contract:
+			if !exceptions.has(key):
+				data.aspects[key] = contract[key]
+		
+		dict.contract.title[contract.title] = data
+		
+		for aspect in data.aspects:
+			if !dict.contract.aspect.has(aspect):
+				dict.contract.aspect[aspect] = []
+			
+			dict.contract.aspect[aspect].append(contract.title)
 	
 func init_vec():
 	vec.size = {}
@@ -125,3 +177,31 @@ func get_random_key(dict_: Dictionary):
 	
 	print("!bug! index_r error in get_random_key func")
 	return null
+	
+func get_all_combinations(array_: Array) -> Array:
+	var combinations = {}
+	combinations[0] = array_.duplicate()
+	combinations[1] = []
+	
+	for child in array_.front():
+		combinations[1].append([child])
+	
+	for _i in array_.size() - 1:
+		set_combinations_based_on_size(combinations, _i + 2)
+	
+	return combinations[array_.size()]
+	
+func set_combinations_based_on_size(combinations_: Dictionary, size_: int) -> void:
+	var parents = combinations_[size_-1]
+	combinations_[size_] = []
+	
+	for parent in parents:
+		for child in combinations_[0][size_ - 1]:
+			if !parent.has(child):
+				var combination = []
+				combination.append_array(parent)
+				combination.append(child)
+				combination.sort_custom(func(a, b): return combinations_[0].find(a) < combinations_[0].find(b))
+				
+				if !combinations_[size_].has(combination):
+					combinations_[size_].append(combination)

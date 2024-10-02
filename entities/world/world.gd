@@ -24,13 +24,7 @@ func _input(event) -> void:
 		match event.keycode:
 			KEY_ESCAPE:
 				get_tree().quit()
+	
 
 
-#var waffle: waffleResource:
-	#set = set_waffle
-#
-#
-#func set_waffle(waffle_: waffleResource) -> ShipResource:
-	#waffle = waffle_
-	#waffle.ships.append(self)
-	#return self
+	

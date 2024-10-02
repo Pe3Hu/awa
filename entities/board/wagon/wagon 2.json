@@ -1,0 +1,123 @@
+[
+ {
+  "title": "hat",
+  "size": 3,
+  "network": 7,
+  "energy": -3
+ },
+ {
+  "title": "wallet",
+  "size": 3,
+  "energy": 5,
+  "payload": -1
+ },
+ {
+  "title": "boot",
+  "size": 3,
+  "energy": -4,
+  "speed": 10,
+  "payload": -2
+ },
+ {
+  "title": "backpack",
+  "size": 3,
+  "energy": -2,
+  "speed": -3,
+  "payload": 9
+ },
+ {
+  "title": "key",
+  "size": 3,
+  "network": -1,
+  "hack": 3
+ },
+ {
+  "title": "sword",
+  "size": 3,
+  "energy": -1,
+  "barrier": 3
+ },
+ {
+  "title": "shield",
+  "size": 3,
+  "speed": -1,
+  "firepower": 3
+ },
+ {
+  "title": "cloak",
+  "size": 3,
+  "payload": -1,
+  "stealth": 3
+ },
+ {
+  "title": "spider",
+  "size": 4,
+  "network": 4,
+  "hack": 2
+ },
+ {
+  "title": "dragon",
+  "size": 4,
+  "energy": 4,
+  "firepower": 2
+ },
+ {
+  "title": "serpent",
+  "size": 4,
+  "speed": 4,
+  "stealth": 2
+ },
+ {
+  "title": "turtle",
+  "size": 4,
+  "payload": 4,
+  "barrier": 2
+ },
+ {
+  "title": "mother",
+  "size": 5,
+  "network": 4,
+  "energy": 2,
+  "payload": 3
+ },
+ {
+  "title": "glow",
+  "size": 5,
+  "network": 5,
+  "speed": 4
+ },
+ {
+  "title": "boiler",
+  "size": 5,
+  "energy": 3,
+  "payload": 6
+ },
+ {
+  "title": "twilight",
+  "size": 5,
+  "speed": 2,
+  "hack": 5,
+  "stealth": 2
+ },
+ {
+  "title": "punishment",
+  "size": 5,
+  "speed": 3,
+  "hack": 3,
+  "firepower": 3
+ },
+ {
+  "title": "crucible",
+  "size": 5,
+  "energy": 5,
+  "barrier": 2,
+  "firepower": 2
+ },
+ {
+  "title": "shelter",
+  "size": 5,
+  "payload": 2,
+  "barrier": 4,
+  "stealth": 3
+ }
+]

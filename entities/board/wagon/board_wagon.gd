@@ -20,7 +20,7 @@ func update_index() -> void:
 		var slot = %Grid.get_child(_i)
 		slot.visible = _i < resource.dimension.x * resource.dimension.y
 		var x = _i % resource.dimension.x
-		var y = _i / resource.dimension.x
+		var y = int(float(_i) / resource.dimension.x)
 		
 		if resource.grids.has(Vector2i(x, y)):
 			slot.status = SlotResource.Status.ACTIVE
