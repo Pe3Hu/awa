@@ -25,6 +25,3 @@ func _input(event) -> void:
 			KEY_ESCAPE:
 				get_tree().quit()
 	
-
-
-	

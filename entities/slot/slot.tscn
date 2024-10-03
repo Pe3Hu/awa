@@ -5,7 +5,9 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_270pf"]
 
 [node name="Slot" type="PanelContainer"]
+custom_minimum_size = Vector2(16, 16)
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_270pf")
 script = ExtResource("1_kym3r")

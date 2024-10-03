@@ -29,6 +29,7 @@ func init_dict() -> void:
 	init_pattern()
 	init_wagon()
 	init_contract()
+	init_convoy()
 	
 func init_pattern() -> void:
 	dict.pattern = {}
@@ -37,7 +38,7 @@ func init_pattern() -> void:
 	var exceptions = ["index", "grids"]
 	
 	var path = "res://entities/board/wagon/pattern.json"
-	var array = load_data(path)
+	var array = load_data(path)[0]
 	
 	for pattern in array:
 		pattern.index = int(pattern.index)
@@ -47,6 +48,7 @@ func init_pattern() -> void:
 		data.title = str(pattern.size) + pattern.letter.to_upper() + str(pattern.flip)
 		data.grids = []
 		data.dimension = Vector2i()
+		data.rotates = {}
 		
 		for key in pattern:
 			if !exceptions.has(key):
@@ -65,6 +67,30 @@ func init_pattern() -> void:
 				data.dimension.y = grid.y
 		
 		data.dimension += Vector2i.ONE
+		data.dimension = Vector2i.ONE * max(data.dimension.x, data.dimension.y)
+		data.rotates[0] = data.grids.duplicate()
+		
+		#print(data.title)
+		for _i in range(1, 4, 1):
+			data.rotates[_i] = []
+			var anchor = Vector2i.ONE * max(data.dimension.x, data.dimension.y)
+			
+			for grid in data.rotates[_i - 1]:
+				var y = grid.x
+				var x = data.dimension.x - grid.y - 1
+				var rotated_grid = Vector2i(x, y)
+				data.rotates[_i].append(rotated_grid)
+				
+				if anchor.x > x:
+					anchor.x = x
+				if anchor.y > y:
+					anchor.y = y
+		
+			if anchor != Vector2i.ZERO:
+				#print(_i, " anchor ", anchor)
+				for _j in data.rotates[_i].size():
+					data.rotates[_i][_j] -= anchor
+		
 		dict.pattern.index[pattern.index] = data
 		
 		if !dict.pattern.size.has(pattern.size):
@@ -122,6 +148,43 @@ func init_contract() -> void:
 			
 			dict.contract.aspect[aspect].append(contract.title)
 	
+func init_convoy() -> void:
+	dict.convoy = {}
+	dict.convoy.index = {}
+	dict.convoy.size = {}
+	var exceptions = ["index"]
+	
+	var path = "res://entities/board/convoy/convoy.json"
+	var array = load_data(path)
+	
+	for convoy in array:
+		convoy.index = int(convoy.index)
+		convoy.size = int(convoy.size)
+		var data = {}
+		data.grids = []
+		
+		for key in convoy:
+			if !exceptions.has(key):
+				if key == "indexs":
+					var words = convoy[key].split(",")
+					#data[key] = []
+					
+					for word in words:
+						#data[key].append(int(word))
+						var x = int(word) % convoy.size
+						var y = int(float(int(word)) / convoy.size)
+						var grid = Vector2i(x, y)
+						data.grids.append(grid)
+				else:
+					data[key] = convoy[key]
+		
+		dict.convoy.index[convoy.index] = data
+		
+		if !dict.convoy.size.has(convoy.size):
+			dict.convoy.size[convoy.size] = []
+			
+		dict.convoy.size[convoy.size].append(convoy.index)
+	
 func init_vec():
 	vec.size = {}
 	vec.size.sixteen = Vector2(16, 16)
@@ -138,9 +201,10 @@ func init_color():
 	#var h = 360.0
 	
 	color.slot = {}
-	color.slot[SlotResource.Status.ACTIVE] = Color.GREEN
-	color.slot[SlotResource.Status.INACTIVE] = Color.RED
-	pass
+	color.slot[SlotResource.Status.EMPTY] = Color.DIM_GRAY
+	color.slot[SlotResource.Status.FILLED] = Color.WEB_GREEN
+	color.slot[SlotResource.Status.TEMP] = Color.GREEN_YELLOW
+	color.slot[SlotResource.Status.ERROR] = Color.DARK_RED
 	
 func save(path_: String, data_: String):
 	var path = path_ + ".json"

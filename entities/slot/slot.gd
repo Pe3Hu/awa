@@ -1,8 +1,11 @@
 class_name Slot extends PanelContainer
 
 
+signal slot_entered(slot)
+signal slot_exit(slot)
 
 @export var board: Board
+@export var token: Token
 @export var type: TokenResource.Type
 @export var status: SlotResource.Status:
 	set(status_):
