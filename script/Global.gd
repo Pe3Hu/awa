@@ -20,7 +20,24 @@ func _ready() -> void:
 	init_dict()
 	
 func init_arr() -> void:
-	pass
+	arr.aspect_designation = ["energy", "network", "payload", "speed", "barrier", "hack", "stealth", "firepower"]
+	arr.primary = [
+		TokenResource.Aspect.ENERGY,
+		TokenResource.Aspect.NETWORK,
+		TokenResource.Aspect.PAYLOAD,
+		TokenResource.Aspect.SPEED
+	]
+	arr.secondary = [
+		TokenResource.Aspect.BARRIER,
+		TokenResource.Aspect.HACK,
+		TokenResource.Aspect.STEALTH,
+		TokenResource.Aspect.FIREPOWER
+	]
+	
+	arr.aspect = []
+	arr.aspect.append_array(arr.primary)
+	arr.aspect.append_array(arr.secondary)
+	
 	
 func init_num() -> void:
 	num.index = {}
@@ -114,7 +131,9 @@ func init_wagon() -> void:
 		
 		for key in wagon:
 			if !exceptions.has(key):
-				data.aspects[key] = wagon[key]
+				var index = arr.aspect_designation.find(key)
+				var aspect = arr.aspect[index]
+				data.aspects[aspect] = wagon[key]
 		
 		dict.wagon.title[wagon.title] = data
 		
@@ -138,7 +157,9 @@ func init_contract() -> void:
 		
 		for key in contract:
 			if !exceptions.has(key):
-				data.aspects[key] = contract[key]
+				var index = arr.aspect_designation.find(key)
+				var aspect = arr.aspect[index]
+				data.aspects[aspect] = contract[key]
 		
 		dict.contract.title[contract.title] = data
 		
@@ -185,6 +206,14 @@ func init_convoy() -> void:
 			
 		dict.convoy.size[convoy.size].append(convoy.index)
 	
+	dict.condition = {}
+	dict.condition.size = {}
+	dict.condition.size[4] = [
+		[-2, -1, 4, 5],
+		[-1, 1, 2, 4],
+		[0, 1, 2, 3]
+	]
+	
 func init_vec():
 	vec.size = {}
 	vec.size.sixteen = Vector2(16, 16)
@@ -201,10 +230,23 @@ func init_color():
 	#var h = 360.0
 	
 	color.slot = {}
-	color.slot[SlotResource.Status.EMPTY] = Color.DIM_GRAY
-	color.slot[SlotResource.Status.FILLED] = Color.WEB_GREEN
-	color.slot[SlotResource.Status.TEMP] = Color.GREEN_YELLOW
-	color.slot[SlotResource.Status.ERROR] = Color.DARK_RED
+	color.slot[SlotResource.Status.EMPTY] = Color.GHOST_WHITE
+	color.slot[SlotResource.Status.FILLED] = Color.SLATE_GRAY
+	color.slot[SlotResource.Status.TEMP] = Color.SLATE_GRAY
+	color.slot[SlotResource.Status.ERROR] = Color.DIM_GRAY
+	
+	color.aspect = {}
+	for _i in arr.aspect.size():
+		color.aspect[arr.aspect[_i]] = Color.from_hsv((_i + 1) / float(arr.aspect.size()), 1.0, 1.0)
+	
+	#color.aspect[TokenResource.Aspect.NETWORK] = Color.from_hsv(160 / h, 0.8, 0.5)
+	#color.aspect[TokenResource.Aspect.ENERGY] = Color.from_hsv(60 / h, 0.9, 0.9)
+	#color.aspect[TokenResource.Aspect.SPEED] = Color.from_hsv(35 / h, 0.9, 0.9)
+	#color.aspect[TokenResource.Aspect.PAYLOAD] = Color.from_hsv(0 / h, 0.0, 0.7)
+	#color.aspect[TokenResource.Aspect.HACK] = Color.from_hsv(280 / h, 0.9, 0.9)
+	#color.aspect[TokenResource.Aspect.FIREPOWER] = Color.from_hsv(0 / h, 0.9, 0.9)
+	#color.aspect[TokenResource.Aspect.BARRIER] = Color.from_hsv(210 / h, 0.9, 0.9)
+	#color.aspect[TokenResource.Aspect.STEALTH] = Color.from_hsv(115 / h, 0.9, 0.7)
 	
 func save(path_: String, data_: String):
 	var path = path_ + ".json"
@@ -269,3 +311,6 @@ func set_combinations_based_on_size(combinations_: Dictionary, size_: int) -> vo
 				
 				if !combinations_[size_].has(combination):
 					combinations_[size_].append(combination)
+	
+func get_str_aspect(aspect_: TokenResource.Type) -> String:
+	return TokenResource.Aspect.keys()[aspect_].to_lower().capitalize()

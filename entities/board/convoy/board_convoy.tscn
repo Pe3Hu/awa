@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dmtv5egd6dmj7" path="res://entities/board/board.tscn" id="1_qrunf"]
 [ext_resource type="Script" path="res://entities/board/convoy/board_convoy.gd" id="2_ggsi7"]
 [ext_resource type="Script" path="res://entities/board/convoy/board_convoy_resource.gd" id="3_4phee"]
-[ext_resource type="PackedScene" uid="uid://cv606sb36xeso" path="res://entities/slot/compartment/slot_compartment.tscn" id="4_actsa"]
+[ext_resource type="PackedScene" uid="uid://dgpg2y16fw7u6" path="res://entities/chart/chart.tscn" id="4_ftcre"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8e5mx"]
 bg_color = Color(0.826246, 0.476606, 0.588896, 1)
@@ -13,75 +13,19 @@ script = ExtResource("3_4phee")
 
 [node name="BoardConvoy" instance=ExtResource("1_qrunf")]
 custom_minimum_size = Vector2(128, 128)
+offset_right = 140.0
+offset_bottom = 140.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_8e5mx")
 script = ExtResource("2_ggsi7")
 resource = SubResource("Resource_ibf55")
 
-[node name="Grid" parent="HBox" index="0"]
-columns = 4
+[node name="Slots" parent="HBox" index="0"]
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
 
-[node name="SlotCompartment" parent="HBox/Grid" index="0" instance=ExtResource("4_actsa")]
+[node name="Chart" parent="HBox" index="1" node_paths=PackedStringArray("convoy") instance=ExtResource("4_ftcre")]
+unique_name_in_owner = true
 layout_mode = 2
-
-[node name="SlotCompartment2" parent="HBox/Grid" index="1" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment3" parent="HBox/Grid" index="2" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment4" parent="HBox/Grid" index="3" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment5" parent="HBox/Grid" index="4" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment6" parent="HBox/Grid" index="5" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment7" parent="HBox/Grid" index="6" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment8" parent="HBox/Grid" index="7" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment9" parent="HBox/Grid" index="8" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment10" parent="HBox/Grid" index="9" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment11" parent="HBox/Grid" index="10" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment12" parent="HBox/Grid" index="11" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment13" parent="HBox/Grid" index="12" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment14" parent="HBox/Grid" index="13" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment15" parent="HBox/Grid" index="14" instance=ExtResource("4_actsa")]
-layout_mode = 2
-
-[node name="SlotCompartment16" parent="HBox/Grid" index="15" instance=ExtResource("4_actsa")]
-layout_mode = 2
+convoy = NodePath("../..")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment" to="HBox/Grid/SlotCompartment" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment2" to="HBox/Grid/SlotCompartment2" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment3" to="HBox/Grid/SlotCompartment3" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment4" to="HBox/Grid/SlotCompartment4" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment5" to="HBox/Grid/SlotCompartment5" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment6" to="HBox/Grid/SlotCompartment6" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment7" to="HBox/Grid/SlotCompartment7" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment8" to="HBox/Grid/SlotCompartment8" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment9" to="HBox/Grid/SlotCompartment9" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment10" to="HBox/Grid/SlotCompartment10" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment11" to="HBox/Grid/SlotCompartment11" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment12" to="HBox/Grid/SlotCompartment12" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment13" to="HBox/Grid/SlotCompartment13" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment14" to="HBox/Grid/SlotCompartment14" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment15" to="HBox/Grid/SlotCompartment15" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="HBox/Grid/SlotCompartment16" to="HBox/Grid/SlotCompartment16" method="_on_mouse_entered"]

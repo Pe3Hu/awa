@@ -12,12 +12,12 @@ bg_color = Color(0.676945, 0.527987, 0.794636, 1)
 script = ExtResource("3_x326u")
 
 [node name="BoardWagon" instance=ExtResource("1_c7iev")]
+custom_minimum_size = Vector2(168, 168)
+offset_right = 128.0
+offset_bottom = 128.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_v64hn")
 script = ExtResource("2_tltcw")
 resource = SubResource("Resource_bichu")
-
-[node name="Grid" parent="HBox" index="0"]
-columns = 5
 
 [node name="Title" type="Label" parent="HBox" index="1"]
 unique_name_in_owner = true

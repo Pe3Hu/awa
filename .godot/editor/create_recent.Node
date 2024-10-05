@@ -1,3 +1,8 @@
+Line2D
+TextureRect
+Sprite2D
+Node2D
+PanelContainer
 GridContainer
 ItemList
 HBoxContainer

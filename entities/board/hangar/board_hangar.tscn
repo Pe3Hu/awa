@@ -27,7 +27,4 @@ script = ExtResource("2_1cxff")
 resource = SubResource("Resource_s6j7y")
 metadata/_edit_use_anchors_ = true
 
-[node name="Grid" parent="HBox" index="0"]
-columns = 5
-
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

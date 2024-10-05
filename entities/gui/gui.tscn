@@ -9,9 +9,12 @@
 [sub_resource type="Resource" id="Resource_mhl0t"]
 script = ExtResource("2_j4emd")
 
-[node name="GUI" type="CanvasLayer"]
+[node name="GUI" type="CanvasLayer" node_paths=PackedStringArray("convoy", "wagon", "hangar")]
 process_mode = 3
 script = ExtResource("1_r04wd")
+convoy = NodePath("HBox/BoardConvoy")
+wagon = NodePath("HBox/BoardWagon")
+hangar = NodePath("HBox/BoardHangar")
 resource = SubResource("Resource_mhl0t")
 
 [node name="HBox" type="HBoxContainer" parent="."]

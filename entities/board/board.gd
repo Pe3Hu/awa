@@ -5,8 +5,8 @@ class_name Board extends PanelContainer
 
 
 func get_slot(grid_: Vector2i) -> Slot:
-	var index = grid_.y * %Grid.columns + grid_.x
-	return %Grid.get_child(index)
+	var index = grid_.y * %Slots.columns + grid_.x
+	return %Slots.get_child(index)
 	
 func check_on_board(grid_: Vector2i) -> bool:
-	return grid_.x >= 0 and grid_.y >= 0 and grid_.x < %Grid.columns and grid_.y < %Grid.columns
+	return grid_.x >= 0 and grid_.y >= 0 and grid_.x < %Slots.columns and grid_.y < %Slots.columns

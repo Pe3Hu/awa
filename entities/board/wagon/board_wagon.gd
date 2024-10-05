@@ -1,5 +1,8 @@
-class_name WagonBoard extends Board
+class_name BoardWagon extends Board
 
+
+@onready var scene_slot = preload("res://entities/slot/compartment/slot_compartment.tscn")
+@onready var scene_token = preload("res://entities/token/compartment/token_compartment.tscn")
 
 @export var resource: BoardWagonResource
 
@@ -9,22 +12,29 @@ func _ready() -> void:
 	gui.resource.wagon = resource
 	var n = 5
 	
-	for _i in n * n:
-		var slot := Slot.new()
-		slot.init(self, TokenResource.Type.COMPARTMENT, Vector2(32, 32))
-		%Grid.add_child(slot)
+	for y in n:
+		for x in n:
+			var slot = scene_slot.instantiate()
+			var slot_resource = SlotCompartmentResource.new()
+			slot_resource.init(Vector2i(x, y))
+			slot.init(self, slot_resource)
+			%Slots.add_child(slot)
 	
-	resource.index -= 1
+	resource.index += 1
 	update_index()
 	
 func update_index() -> void:
 	%Title.text = resource.title
-	%Grid.columns = resource.dimension.x
+	%Slots.columns = resource.dimension.x
 	update_slots()
 	
 func update_slots() -> void:
-	for _i in %Grid.get_child_count():
-		var slot = %Grid.get_child(_i)
+	if gui.convoy.anchor_slot != null:
+		gui.convoy.clear()
+		gui.convoy._on_slot_mouse_entered(gui.convoy.anchor_slot)
+	
+	for _i in %Slots.get_child_count():
+		var slot = %Slots.get_child(_i)
 		slot.visible = _i < resource.dimension.x * resource.dimension.y
 		var x = _i % resource.dimension.x
 		var y = int(float(_i) / resource.dimension.x)

@@ -1,19 +1,8 @@
-res://entities/board/hangar/board_hangar.tscn
+res://entities/chart/chart.tscn
+res://shaders/spider web.gdshader
 res://shaders/gradient effects.gdshader
-res://script/Global.gd
-res://entities/world/world.gd
-res://entities/gui/gui.tscn
-res://entities/board/convoy/board_convoy.gd
+res://shaders/ant line.gdshader
+res://entities/board/wagon/board_wagon.tscn
 res://entities/board/convoy/board_convoy.tscn
-res://entities/board/wagon/board_wagon.gd
-res://entities/board/board.tscn
-res://entities/token/token.tscn
-res://entities/slot/slot.tscn
-res://entities/slot/slot_resource.gd
-res://entities/slot/slot.gd
-res://entities/board/board.gd
-res://entities/board/hangar/board_hangar.gd
-res://entities/slot/compartment/slot_compartment.tscn
-res://entities/slot/compartment/slot_compartment.gd
-res://entities/board/wagon/board_wagon_resource.gd
-res://entities/gui/gui_resource.gd
+res://entities/board/hangar/board_hangar.tscn
+res://entities/chart/chart.gd
