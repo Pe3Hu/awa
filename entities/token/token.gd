@@ -1,8 +1,14 @@
+@tool
 class_name Token extends TextureRect
 
 
 @export var board: Board
 @export var resource: TokenResource
+
+@export_range(-30, 30, 1) var value: int:
+	set(value_):
+		value = value_
+		%Value.text = str(value)
 
 
 func _ready() -> void:
@@ -15,8 +21,4 @@ func _ready() -> void:
 func init(board_: Board, resource_: TokenResource) -> void:
 	board = board_
 	resource = resource_
-	modulate = Global.color.aspect[resource.aspect]
-	update_value()
-	
-func update_value() -> void:
-	%Value.text = str(resource.value)
+	value = resource.value

@@ -1,8 +1,7 @@
 class_name ChartResource extends Resource
 
 
-
-var convoy: BoardConvoyResource
+var convoy: ConvoyResource
 var aspects: Dictionary
 var min_aspect: int
 var max_aspect: int

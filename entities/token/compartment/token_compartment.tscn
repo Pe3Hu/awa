@@ -1,16 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsnx1d6tg2emm"]
+[gd_scene load_steps=6 format=3 uid="uid://dsnx1d6tg2emm"]
 
 [ext_resource type="PackedScene" uid="uid://wecn47dxi6w8" path="res://entities/token/token.tscn" id="1_5fs85"]
 [ext_resource type="Script" path="res://entities/token/compartment/token_compartment.gd" id="2_k6w14"]
+[ext_resource type="Texture2D" uid="uid://crcwgo4o467rv" path="res://entities/token/images/coin.png" id="2_umste"]
 [ext_resource type="Script" path="res://entities/token/compartment/token_compartment_resource.gd" id="3_hwhk4"]
 
 [sub_resource type="Resource" id="Resource_8584s"]
 script = ExtResource("3_hwhk4")
-aspect = 0
-value = 0
 type = 0
+aspect = 0
 description = ""
+texture = ExtResource("2_umste")
+value = 0
 
 [node name="TokenCompartment" instance=ExtResource("1_5fs85")]
+modulate = Color(1, 0.75, 0, 1)
+texture = ExtResource("2_umste")
 script = ExtResource("2_k6w14")
+aspect = 0
 resource = SubResource("Resource_8584s")

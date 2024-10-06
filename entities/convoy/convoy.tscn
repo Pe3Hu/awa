@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://bhhwgsnlm0bqs"]
+
+[ext_resource type="PackedScene" uid="uid://dmtv5egd6dmj7" path="res://entities/board/board.tscn" id="1_qrunf"]
+[ext_resource type="Script" path="res://entities/convoy/convoy.gd" id="2_ggsi7"]
+[ext_resource type="Script" path="res://entities/convoy/convoy_resource.gd" id="3_4phee"]
+[ext_resource type="PackedScene" uid="uid://dgpg2y16fw7u6" path="res://entities/chart/chart.tscn" id="4_ftcre"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8e5mx"]
+bg_color = Color(0.826246, 0.476606, 0.588896, 1)
+
+[sub_resource type="Resource" id="Resource_ibf55"]
+script = ExtResource("3_4phee")
+
+[node name="Convoy" instance=ExtResource("1_qrunf")]
+custom_minimum_size = Vector2(128, 128)
+offset_right = 140.0
+offset_bottom = 140.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8e5mx")
+script = ExtResource("2_ggsi7")
+resource = SubResource("Resource_ibf55")
+
+[node name="Slots" parent="HBox" index="0"]
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+
+[node name="Chart" parent="HBox" index="1" node_paths=PackedStringArray("convoy") instance=ExtResource("4_ftcre")]
+unique_name_in_owner = true
+layout_mode = 2
+convoy = NodePath("../..")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

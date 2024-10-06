@@ -1,16 +1,18 @@
 shader_type canvas_item;
 
 //uniform vec4 color : source_color = vec4(1);
-uniform float thickness : hint_range(0.0, 8., 0.1) = 5.;
+uniform float thickness : hint_range(0.0, 108., 0.1) = 5.;
 uniform int spikes : hint_range(1,20, 1) = 8;
-uniform int strands: hint_range(1, 20, 1) = 5;
-uniform float indencity : hint_range(0.000, .5, 0.001) = 0.05;
+uniform int strands: hint_range(1, 20, 1) = 3;
+uniform float indencity : hint_range(0.000, .5, 0.001) = 0.1;
 uniform vec2 center = vec2(.5,.5);
 uniform float rel_size : hint_range(0., 1., .1) = 0.5;
 uniform vec2 skew = vec2(1., 1.);
 
 uniform float influence: hint_range(0.0, 1.0, 0.1) = 1.0;
 uniform float offset: hint_range(0.0, 360.0, 1.0);
+
+uniform float cutout: hint_range(0.0, 1.0, 0.01) = 0.20;
 
 const float TWO_PI = 6.28318530718;
 

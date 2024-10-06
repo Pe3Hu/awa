@@ -13,11 +13,12 @@ var scene = {}
 
 
 func _ready() -> void:
-	init_arr()
-	init_num()
-	init_vec()
-	init_color()
-	init_dict()
+	if dict.keys().is_empty():
+		init_arr()
+		init_color()
+		init_dict()
+	
+	#get_tree().bourse.resource.after_init()
 	
 func init_arr() -> void:
 	arr.aspect_designation = ["energy", "network", "payload", "speed", "barrier", "hack", "stealth", "firepower"]
@@ -38,10 +39,6 @@ func init_arr() -> void:
 	arr.aspect.append_array(arr.primary)
 	arr.aspect.append_array(arr.secondary)
 	
-	
-func init_num() -> void:
-	num.index = {}
-	
 func init_dict() -> void:
 	init_pattern()
 	init_wagon()
@@ -54,7 +51,7 @@ func init_pattern() -> void:
 	dict.pattern.size = {}
 	var exceptions = ["index", "grids"]
 	
-	var path = "res://entities/board/wagon/pattern.json"
+	var path = "res://entities//wagon/pattern.json"
 	var array = load_data(path)[0]
 	
 	for pattern in array:
@@ -62,7 +59,7 @@ func init_pattern() -> void:
 		pattern.size = int(pattern.size)
 		pattern.flip = int(pattern.flip)
 		var data = {}
-		data.title = str(pattern.size) + pattern.letter.to_upper() + str(pattern.flip)
+		data.acronym = str(pattern.size) + pattern.letter.to_upper() + str(pattern.flip)
 		data.grids = []
 		data.dimension = Vector2i()
 		data.rotates = {}
@@ -121,7 +118,7 @@ func init_wagon() -> void:
 	dict.wagon.size = {}
 	var exceptions = ["title", "size"]
 	
-	var path = "res://entities/board/wagon/wagon.json"
+	var path = "res://entities//wagon/wagon.json"
 	var array = load_data(path)
 	
 	for wagon in array:
@@ -148,7 +145,7 @@ func init_contract() -> void:
 	dict.contract.aspect = {}
 	var exceptions = ["title"]
 	
-	var path = "res://entities/board/convoy/contract.json"
+	var path = "res://entities//convoy/contract.json"
 	var array = load_data(path)
 	
 	for contract in array:
@@ -175,7 +172,7 @@ func init_convoy() -> void:
 	dict.convoy.size = {}
 	var exceptions = ["index"]
 	
-	var path = "res://entities/board/convoy/convoy.json"
+	var path = "res://entities//convoy/convoy.json"
 	var array = load_data(path)
 	
 	for convoy in array:
@@ -213,18 +210,6 @@ func init_convoy() -> void:
 		[-1, 1, 2, 4],
 		[0, 1, 2, 3]
 	]
-	
-func init_vec():
-	vec.size = {}
-	vec.size.sixteen = Vector2(16, 16)
-	
-	init_window_size()
-	
-func init_window_size():
-	vec.size.window = {}
-	vec.size.window.width = ProjectSettings.get_setting("display/window/size/viewport_width")
-	vec.size.window.height = ProjectSettings.get_setting("display/window/size/viewport_height")
-	vec.size.window.center = Vector2(vec.size.window.width/2, vec.size.window.height/2)
 	
 func init_color():
 	#var h = 360.0

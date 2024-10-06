@@ -1,60 +1,118 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgpg2y16fw7u6"]
+[gd_scene load_steps=10 format=3 uid="uid://dgpg2y16fw7u6"]
 
 [ext_resource type="Script" path="res://entities/chart/chart.gd" id="1_v8e64"]
-[ext_resource type="Shader" path="res://shaders/spider web.gdshader" id="2_n44ax"]
+[ext_resource type="Shader" path="res://shaders/octagon.gdshader" id="2_0uomk"]
 [ext_resource type="Texture2D" uid="uid://b4kvhgxgpcmd5" path="res://entities/white_256.png" id="3_qiagm"]
-[ext_resource type="Shader" path="res://shaders/ant line.gdshader" id="4_iwlh7"]
+[ext_resource type="PackedScene" uid="uid://dsnx1d6tg2emm" path="res://entities/token/compartment/token_compartment.tscn" id="4_hi8sn"]
+[ext_resource type="Script" path="res://entities/token/compartment/token_compartment_resource.gd" id="5_iod5f"]
+[ext_resource type="Texture2D" uid="uid://crcwgo4o467rv" path="res://entities/token/images/coin.png" id="6_e4ety"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ql5f1"]
 bg_color = Color(0.34, 0.34, 0.34, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s1ts2"]
-shader = ExtResource("2_n44ax")
-shader_parameter/thickness = 5.0
-shader_parameter/spikes = 8
-shader_parameter/strands = 5
-shader_parameter/indencity = 0.05
-shader_parameter/center = Vector2(0.5, 0.5)
-shader_parameter/rel_size = 0.5
-shader_parameter/skew = Vector2(1, 1)
-shader_parameter/influence = 1.0
-shader_parameter/offset = null
+shader = ExtResource("2_0uomk")
+shader_parameter/n = 8
+shader_parameter/k = 2
+shader_parameter/l = 0.5
+shader_parameter/offset = 180.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_52duu"]
-shader = ExtResource("4_iwlh7")
-shader_parameter/frequency = 1.0
-shader_parameter/amplitude = 1000.0
-shader_parameter/speed = 5.0
-shader_parameter/direction = 1.0
-shader_parameter/color1 = Color(0.366595, 0.366595, 0.366595, 1)
-shader_parameter/color2 = Color(1, 1, 1, 1)
-shader_parameter/opacity = 1.0
+[sub_resource type="Resource" id="Resource_n5fvg"]
+script = ExtResource("5_iod5f")
+type = 0
+aspect = 0
+description = ""
+texture = ExtResource("6_e4ety")
+value = 0
 
 [node name="Chart" type="PanelContainer"]
 custom_minimum_size = Vector2(256, 256)
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 256.0
+offset_bottom = 256.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ql5f1")
 script = ExtResource("1_v8e64")
 
-[node name="Threshold" type="Line2D" parent="."]
-unique_name_in_owner = true
-closed = true
-width = 8.0
-default_color = Color(0, 0, 0, 1)
-
-[node name="Axles" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_s1ts2")
-custom_minimum_size = Vector2(128, 128)
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Axles" type="TextureRect" parent="HBoxContainer"]
+material = SubResource("ShaderMaterial_s1ts2")
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("3_qiagm")
 stretch_mode = 2
 
-[node name="Indicator" type="Line2D" parent="."]
+[node name="Threshold" type="Line2D" parent="HBoxContainer"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_52duu")
-position = Vector2(9, 0)
-points = PackedVector2Array(172, 127, 190, 56, 120, 51, 49, 59, 27, 126, 49, 200, 115, 197, 192, 201)
+visible = false
 closed = true
-width = 4.0
-texture_mode = 1
+width = 6.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Indicator" type="Polygon2D" parent="HBoxContainer"]
+unique_name_in_owner = true
+color = Color(0.572988, 0.572988, 0.572988, 0.862745)
+polygon = PackedVector2Array(130, 53, 181, 68, 206, 126, 185, 182, 131, 229, 69, 181, 37, 124, 69, 66)
+
+[node name="Aspects" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Energy" parent="HBoxContainer/Aspects" instance=ExtResource("4_hi8sn")]
+unique_name_in_owner = true
+layout_mode = 2
+resource = SubResource("Resource_n5fvg")
+
+[node name="Network" parent="HBoxContainer/Aspects" instance=ExtResource("4_hi8sn")]
+unique_name_in_owner = true
+modulate = Color(0.5, 1, 0, 1)
+layout_mode = 2
+aspect = 1
+resource = SubResource("Resource_n5fvg")
+
+[node name="Payload" parent="HBoxContainer/Aspects" instance=ExtResource("4_hi8sn")]
+unique_name_in_owner = true
+modulate = Color(0, 1, 0.25, 1)
+layout_mode = 2
+aspect = 2
+resource = SubResource("Resource_n5fvg")
+
+[node name="Speed" parent="HBoxContainer/Aspects" instance=ExtResource("4_hi8sn")]
+unique_name_in_owner = true
+modulate = Color(0, 1, 1, 1)
+layout_mode = 2
+aspect = 3
+resource = SubResource("Resource_n5fvg")
+
+[node name="Barrier" parent="HBoxContainer/Aspects" instance=ExtResource("4_hi8sn")]
+unique_name_in_owner = true
+modulate = Color(0, 0.25, 1, 1)
+layout_mode = 2
+aspect = 4
+resource = SubResource("Resource_n5fvg")
+
+[node name="Hack" parent="HBoxContainer/Aspects" instance=ExtResource("4_hi8sn")]
+unique_name_in_owner = true
+modulate = Color(0.5, 0, 1, 1)
+layout_mode = 2
+aspect = 5
+resource = SubResource("Resource_n5fvg")
+
+[node name="Stealth" parent="HBoxContainer/Aspects" instance=ExtResource("4_hi8sn")]
+unique_name_in_owner = true
+modulate = Color(1, 0, 0.75, 1)
+layout_mode = 2
+aspect = 6
+resource = SubResource("Resource_n5fvg")
+
+[node name="Firepower" parent="HBoxContainer/Aspects" instance=ExtResource("4_hi8sn")]
+unique_name_in_owner = true
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+aspect = 7
+resource = SubResource("Resource_n5fvg")

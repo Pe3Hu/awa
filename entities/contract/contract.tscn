@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq1g1rr56ea0a"]
+
+[ext_resource type="Script" path="res://entities/contract/contract.gd" id="1_ixwv4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0uytx"]
+
+[node name="Contract" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_0uytx")
+script = ExtResource("1_ixwv4")

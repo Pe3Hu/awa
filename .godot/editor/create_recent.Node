@@ -1,8 +1,11 @@
+CanvasLayer
+PanelContainer
+VBoxContainer
+HBoxContainer
+Polygon2D
 Line2D
 TextureRect
 Sprite2D
 Node2D
-PanelContainer
 GridContainer
 ItemList
-HBoxContainer

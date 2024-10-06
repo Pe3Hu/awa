@@ -1,7 +1,7 @@
 class_name World extends Node
 
 
-@export var gui: GUI
+@export var bourse: Bourse
 @export var blabla: int = 0:
 	set(blabla_):
 		blabla = blabla_

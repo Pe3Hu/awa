@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://brochysi48kf7"]
+
+[ext_resource type="Script" path="res://entities/statistic/statistic.gd" id="1_a8lts"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0uytx"]
+
+[node name="Statistic" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_0uytx")
+script = ExtResource("1_a8lts")

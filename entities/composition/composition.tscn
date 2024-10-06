@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cakai7inqjk7p"]
+
+[ext_resource type="Script" path="res://entities/composition/composition.gd" id="1_yc18o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0uytx"]
+
+[node name="Composition" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_0uytx")
+script = ExtResource("1_yc18o")

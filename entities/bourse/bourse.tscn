@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://do4xhwky8pgte"]
+
+[ext_resource type="Script" path="res://entities/bourse/bourse.gd" id="1_35w8p"]
+[ext_resource type="Script" path="res://entities/bourse/bourse_resource.gd" id="2_ie5d3"]
+
+[sub_resource type="Resource" id="Resource_0h8q7"]
+script = ExtResource("2_ie5d3")
+
+[node name="Bourse" type="PanelContainer"]
+process_mode = 3
+script = ExtResource("1_35w8p")
+resource = SubResource("Resource_0h8q7")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
