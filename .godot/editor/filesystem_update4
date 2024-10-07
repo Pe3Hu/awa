@@ -1,37 +1,10 @@
-res://entities/Corporation/empty.tscn
+res://entities/bourse/bourse.tscn
 res://shaders/gradient effects.gdshader
 res://shaders/spider web.gdshader
 res://shaders/ant line.gdshader
 res://shaders/octagon.gdshader
-res://entities/empty/empty_resource.gd
-res://entities/empty/empty.tscn
-res://entities/corporation/corporation_resource.gd
-res://entities/corporation/corporation.tscn
-res://entities/corporation/corporation.gd
-res://entities/bourse/bourse_resource.gd
-res://entities/contract/contract_resource.gd
-res://entities/contract/contract.tscn
-res://entities/bourse/bourse.tscn
-res://entities/bourse/bourse.gd
-res://entities/statistic/statistic.tscn
-res://entities/board/convoy/board_convoy_resource.gd
-res://entities/statistic/statistic.gd
-res://entities/statistic/statistic_resource.gd
-res://entities/chart/chart_resource.gd
-res://script/Global.gd
-res://entities/board/convoy/convoy.tscn
-res://entities/board/convoy/convoy.gd
-res://entities/board/board_resource.gd
-res://entities/board/convoy/convoy_resource.gd
-res://entities/board/hangar/board_hangar.tscn
-res://entities/board/hangar/board_hangar.gd
-res://entities/board/hangar/board_hangar_resource.gd
-res://entities/board/hangar/hangar.tscn
-res://entities/hangar/hangar.tscn
-res://entities/hangar/hangar.gd
-res://entities/hangar/hangar_resource.gd
-res://entities/board/wagon/wagon.tscn
-res://entities/board/wagon/wagon.gd
-res://entities/board/wagon/wagon_resource.gd
-res://entities/wagon/wagon_resource.gd
 res://entities/composition/composition_resource.gd
+res://entities/bourse/bourse_resource.gd
+res://entities/convoy/convoy_resource.gd
+res://script/Global.gd
+res://entities/convoy/decoration_resource.gd

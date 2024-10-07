@@ -40,10 +40,21 @@ func init_arr() -> void:
 	arr.aspect.append_array(arr.secondary)
 	
 func init_dict() -> void:
+	init_direction()
+	
 	init_pattern()
 	init_wagon()
 	init_contract()
 	init_convoy()
+	
+func init_direction() -> void:
+	dict.direction = {}
+	dict.direction.linear2 = [
+		Vector2i( 0,-1),
+		Vector2i( 1, 0),
+		Vector2i( 0, 1),
+		Vector2i(-1, 0)
+	]
 	
 func init_pattern() -> void:
 	dict.pattern = {}
@@ -210,6 +221,50 @@ func init_convoy() -> void:
 		[-1, 1, 2, 4],
 		[0, 1, 2, 3]
 	]
+	
+	var sizes = [4, 5]
+	dict.anchors = {}
+	
+	for size in sizes:
+		dict.anchors[size] = []
+		
+		for y in size:
+			for x in size:
+				dict.anchors[size].append(Vector2i(x, y))
+	
+	dict.flips = {}
+	dict.rotates = {}
+	
+	for size in sizes:
+		dict.flips[size] = {}
+		dict.rotates[size] = {}
+		
+		for grid in dict.anchors[size]:
+			dict.flips[size][grid] = Vector2i(abs(grid.x - (size - 1)), grid.y)
+			var y = grid.x
+			var x = abs(grid.y - (size - 1))
+			dict.rotates[size][grid] = Vector2i(x, y)
+	
+	dict.segments = {}
+	dict.segments[4] = [
+		[9, 3],
+		[8, 4],
+		[7, 5]
+	]
+	dict.segments[5] = [
+		[14, 3],
+		[13, 4],
+		[12, 5],
+		[10, 7],
+		[9, 8],
+		[10, 4, 3],
+		[9, 5, 3],
+		[9, 4, 4],
+	]
+	#var k = 5
+	#for grid in dict.flips[k]:
+		#print([grid.x + grid.y * k, dict.flips[k][grid].x + dict.flips[k][grid].y * k])
+	#pass
 	
 func init_color():
 	#var h = 360.0

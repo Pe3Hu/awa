@@ -26,20 +26,7 @@ func roll_statistic() -> void:
 		statistic.grids[aspects[_i]] = [grid]
 		statistic.values[aspects[_i]] = values[_i]
 	
-#func check_pattern(slot_: Slot) -> bool:
-	#for patter_grid in Bourse.wagon.rotates[Bourse.wagon.rotate]:
-		#var grid = slot_.resource.grid + patter_grid
-		#
-		#if !check_on_board(grid):
-			#return false
-		#
-		#var slot = get_slot(grid)
-		#
-		#if slot.status != SlotResource.Status.EMPTY:
-			#return false
-	#
-	#return true
-	#
+
 #func calc_all_contracts() -> void:
 	#for title in Global.dict.contract.title:
 		#var contract = {}
