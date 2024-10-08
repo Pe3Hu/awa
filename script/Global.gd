@@ -41,6 +41,7 @@ func init_arr() -> void:
 	
 func init_dict() -> void:
 	init_direction()
+	init_shape()
 	
 	init_pattern()
 	init_wagon()
@@ -55,6 +56,93 @@ func init_direction() -> void:
 		Vector2i( 0, 1),
 		Vector2i(-1, 0)
 	]
+	dict.direction.diagonal = [
+		Vector2i( 1,-1),
+		Vector2i( 1, 1),
+		Vector2i(-1, 1),
+		Vector2i(-1,-1)
+	]
+	
+	dict.direction.hybrid = []
+	
+	for _i in dict.direction.linear2.size():
+		var direction = dict.direction.linear2[_i]
+		dict.direction.hybrid.append(direction)
+		direction = dict.direction.diagonal[_i]
+		dict.direction.hybrid.append(direction)
+	
+func init_shape() -> void:
+	dict.condition = {}
+	dict.condition.size = {}
+	dict.condition.size[4] = [
+		[-2, -1, 4, 5],
+		[-1, 1, 2, 4],
+		[0, 1, 2, 3]
+	]
+	
+	var sizes = [4, 5]
+	dict.anchors = {}
+	
+	for size in sizes:
+		dict.anchors[size] = []
+		
+		for y in size:
+			for x in size:
+				dict.anchors[size].append(Vector2i(x, y))
+	
+	dict.flips = {}
+	dict.rotates = {}
+	
+	for size in sizes:
+		dict.flips[size] = {}
+		dict.rotates[size] = {}
+		
+		for grid in dict.anchors[size]:
+			dict.flips[size][grid] = Vector2i(abs(grid.x - (size - 1)), grid.y)
+			var y = grid.x
+			var x = abs(grid.y - (size - 1))
+			dict.rotates[size][grid] = Vector2i(x, y)
+	
+	dict.segments = {}
+	dict.segments[4] = [
+		[12],
+		[9, 3],
+		[8, 4],
+		[7, 5]
+	]
+	dict.segments[5] = [
+		[16],
+		[13, 3],
+		[12, 4],
+		[11, 5],
+		[9, 7],
+		[8, 8],
+		[10, 3, 3],
+		[9, 4, 3],
+		[8, 5, 3],
+		[8, 4, 4],
+		[7, 5, 4],
+		[6, 5, 5],
+		[5, 5, 3, 3],
+		[5, 4, 4, 3],
+		[4, 4, 4, 4]
+	]
+	#dict.segments[5] = [
+		#[17],
+		#[14, 3],
+		#[13, 4],
+		#[12, 5],
+		#[10, 7],
+		#[9, 8],
+		#[10, 4, 3],
+		#[9, 5, 3],
+		#[9, 4, 4],
+	#]
+	
+	#var k = 5
+	#for grid in dict.flips[k]:
+		#print([grid.x + grid.y * k, dict.flips[k][grid].x + dict.flips[k][grid].y * k])
+	#pass
 	
 func init_pattern() -> void:
 	dict.pattern = {}
@@ -71,19 +159,20 @@ func init_pattern() -> void:
 		pattern.flip = int(pattern.flip)
 		var data = {}
 		data.acronym = str(pattern.size) + pattern.letter.to_upper() + str(pattern.flip)
-		data.grids = []
 		data.dimension = Vector2i()
-		data.rotates = {}
+		data.shapes = {}
+		data.directions = {}
 		
 		for key in pattern:
 			if !exceptions.has(key):
 				data[key] = pattern[key]
 		
 		var grids = pattern.grids.split(";")
+		data.shapes[0] = []
 		
 		for _grid in grids:
 			var grid = str_to_var("Vector2i" + _grid)
-			data.grids.append(grid)
+			data.shapes[0].append(grid)
 			
 			if data.dimension.x < grid.x:
 				data.dimension.x = grid.x
@@ -93,18 +182,17 @@ func init_pattern() -> void:
 		
 		data.dimension += Vector2i.ONE
 		data.dimension = Vector2i.ONE * max(data.dimension.x, data.dimension.y)
-		data.rotates[0] = data.grids.duplicate()
 		
 		#print(data.title)
 		for _i in range(1, 4, 1):
-			data.rotates[_i] = []
+			data.shapes[_i] = []
 			var anchor = Vector2i.ONE * max(data.dimension.x, data.dimension.y)
 			
-			for grid in data.rotates[_i - 1]:
+			for grid in data.shapes[_i - 1]:
 				var y = grid.x
 				var x = data.dimension.x - grid.y - 1
 				var rotated_grid = Vector2i(x, y)
-				data.rotates[_i].append(rotated_grid)
+				data.shapes[_i].append(rotated_grid)
 				
 				if anchor.x > x:
 					anchor.x = x
@@ -113,8 +201,15 @@ func init_pattern() -> void:
 		
 			if anchor != Vector2i.ZERO:
 				#print(_i, " anchor ", anchor)
-				for _j in data.rotates[_i].size():
-					data.rotates[_i][_j] -= anchor
+				for _j in data.shapes[_i].size():
+					data.shapes[_i][_j] -= anchor
+		
+		for _i in data.shapes:
+			data.directions[_i] = []
+			
+			for grid in data.shapes[_i]:
+				data.directions[_i].append(grid - data.shapes[_i].front())
+			
 		
 		dict.pattern.index[pattern.index] = data
 		
@@ -214,57 +309,6 @@ func init_convoy() -> void:
 			
 		dict.convoy.size[convoy.size].append(convoy.index)
 	
-	dict.condition = {}
-	dict.condition.size = {}
-	dict.condition.size[4] = [
-		[-2, -1, 4, 5],
-		[-1, 1, 2, 4],
-		[0, 1, 2, 3]
-	]
-	
-	var sizes = [4, 5]
-	dict.anchors = {}
-	
-	for size in sizes:
-		dict.anchors[size] = []
-		
-		for y in size:
-			for x in size:
-				dict.anchors[size].append(Vector2i(x, y))
-	
-	dict.flips = {}
-	dict.rotates = {}
-	
-	for size in sizes:
-		dict.flips[size] = {}
-		dict.rotates[size] = {}
-		
-		for grid in dict.anchors[size]:
-			dict.flips[size][grid] = Vector2i(abs(grid.x - (size - 1)), grid.y)
-			var y = grid.x
-			var x = abs(grid.y - (size - 1))
-			dict.rotates[size][grid] = Vector2i(x, y)
-	
-	dict.segments = {}
-	dict.segments[4] = [
-		[9, 3],
-		[8, 4],
-		[7, 5]
-	]
-	dict.segments[5] = [
-		[14, 3],
-		[13, 4],
-		[12, 5],
-		[10, 7],
-		[9, 8],
-		[10, 4, 3],
-		[9, 5, 3],
-		[9, 4, 4],
-	]
-	#var k = 5
-	#for grid in dict.flips[k]:
-		#print([grid.x + grid.y * k, dict.flips[k][grid].x + dict.flips[k][grid].y * k])
-	#pass
 	
 func init_color():
 	#var h = 360.0

@@ -15,7 +15,7 @@ func _init() -> void:
 	#init_compositions()
 	init_decorations()
 	var b = Time.get_unix_time_from_system()
-	#print(b - a)
+	print(b - a)
 	
 func init_corporations() -> void:
 	for _i in 1:
@@ -108,9 +108,10 @@ func init_compositions() -> void:
 	#return rotates
 	
 func init_decorations() -> void:
-	var convoy_size = 4
+	var convoy_size = 5
 	var origin_decoration = DecorationResource.new(self, convoy_size)
-	var limit = 4
+	origin_decoration.branchs = Global.dict.anchors[convoy_size]
+	var limit = 9
 	var waves = [
 		[origin_decoration]
 	]
@@ -120,7 +121,7 @@ func init_decorations() -> void:
 		var childs = []
 		
 		for parent in parents:
-			for anchor in Global.dict.anchors[convoy_size]:
+			for anchor in parent.branchs:
 				var child = parent.create_child(anchor)
 				
 				if child != null:
@@ -128,15 +129,22 @@ func init_decorations() -> void:
 		
 		waves.append(childs)
 	
-	
 	for _i in range(decorations[limit].size() -1, -1, -1):
 		var decoration = decorations[limit][_i]
 		decoration.init_segments()
 		
+		if !Global.dict.segments[convoy_size].has(decoration.segment_lengths):
+			decorations[limit].erase(decoration)
+		#else:
+			#if !decoration.check_pairs():
+				#decorations[limit].erase(decoration)
+	
+	for decoration in decorations[limit]:
 		var indexs = []
 		
 		for grid in decoration.grids:
 			indexs.append(grid.y * convoy_size + grid.x)
 		
-		print([indexs, decoration.segment_lengths])
-		
+		print([decorations[limit].find(decoration), indexs, decoration.segment_lengths])
+	
+	print(decorations[limit].size())

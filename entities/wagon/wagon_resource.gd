@@ -17,7 +17,7 @@ var pattern_index: int = 0:
 		
 		dimension = Global.dict.pattern.index[pattern_index].dimension
 		rotate = 0
-		rotates = Global.dict.pattern.index[pattern_index].rotates
+		rotates = Global.dict.pattern.index[pattern_index].shapes
 var rotate: int = 0:
 	set(rotate_):
 		rotate = (4 + rotate_) % 4

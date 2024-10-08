@@ -3,8 +3,7 @@ res://shaders/gradient effects.gdshader
 res://shaders/spider web.gdshader
 res://shaders/ant line.gdshader
 res://shaders/octagon.gdshader
-res://entities/composition/composition_resource.gd
-res://entities/bourse/bourse_resource.gd
-res://entities/convoy/convoy_resource.gd
 res://script/Global.gd
 res://entities/convoy/decoration_resource.gd
+res://entities/wagon/wagon_resource.gd
+res://entities/bourse/bourse_resource.gd
