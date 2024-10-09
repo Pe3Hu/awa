@@ -2,75 +2,84 @@ class_name DecorationResource extends Resource
 
 
 var bourse: BourseResource
-var convoy_size: int
+var decoration_size: int
+var index: int
+
 var grids: Array[Vector2i]
-var segment_lengths: Array[int]
-var branchs: Array
+var branchs: Array[Vector2i]
 var chains: Array
 var insulations: Array
+
 var chain_size: int = 3
+var segment_lengths: Array[int]
 
 
-func _init(bourse_: BourseResource, convoy_size_: int) -> void:
+func _init(bourse_: BourseResource, index_: int) -> void:
 	bourse = bourse_
-	convoy_size = convoy_size_
+	index = index_
+	var description = Global.dict.decoration.index[index]
+	decoration_size = description.size
+	grids.append_array(description.grids)
+	
+	if !bourse.decoration_sizes.has(decoration_size):
+		bourse.decoration_sizes[decoration_size] = []
+	
+	bourse.decoration_sizes[decoration_size].append(self)
+	bourse.decorations.append(self)
+	
+#func _init(bourse_: BourseResource, decoration_size_: int) -> void:
+	#bourse = bourse_
+	#decoration_size = decoration_size_
+	#chain_size = decoration_size_ - 2
 	
 func create_child(grid_: Vector2i) -> Variant:
 	if grids.has(grid_):
 		return null
 	
-	var child = DecorationResource.new(bourse, convoy_size)
+	var child = DecorationResource.new(bourse, decoration_size)
+	
+	for chain in chains:
+		child.chains.append(chain.duplicate())
+	
+	child.insulations.append_array(insulations)
 	child.grids.append_array(grids)
 	child.grids.append(grid_)
-	child.grids.sort_custom(func(a, b): return a.y * convoy_size + a.x < b.y * convoy_size + b.x)
-	child.chains.append_array(chains)
-	#child.insulations.append_array(insulations)
+	child.grids.sort_custom(func(a, b): return a.y * decoration_size + a.x < b.y * decoration_size + b.x)
 	
-	if grids.size() == 1:
-		pass
-	
-	if child.grids.size() % chain_size == 1:
+	if grids.size() % chain_size == 0:
 		child.chains.append([grid_])
-		
+	else:
+		child.chains[child.chains.size() - 1].append(grid_)
+	
+	if grids.size() % chain_size == 0:
 		for direction in Global.dict.direction.linear2:
 			var branch = grid_ + direction
 			
 			if check_border(branch) and !child.insulations.has(branch) and !child.branchs.has(branch):
 				child.branchs.append(branch)
 	else:
-		child.chains[child.chains.size() - 1].append(grid_)
-		
-		if child.chains.back().size() % chain_size == 0:
-			for grid in child.grids:#child.chains.back():
+		if child.chains.back().size() == chain_size:
+			for grid in child.chains.back():
 				for direction in Global.dict.direction.linear2:
 					var insulation = grid + direction
 					
 					if check_border(insulation) and !child.insulations.has(insulation) and !child.grids.has(insulation):
 						child.insulations.append(insulation)
 		
-			for direction in Global.dict.direction.diagonal:
-				var branch = grid_ + direction
-				
-				if check_border(branch) and !child.insulations.has(branch):# and !child.branchs.has(branch):
-					child.branchs.append(branch)
+			for grid in child.chains.back():
+				for direction in Global.dict.direction.diagonal:
+					var branch = grid + direction
+					
+					if check_border(branch) and !child.insulations.has(branch):# and !child.branchs.has(branch):
+						child.branchs.append(branch)
 		else:
 			for direction in Global.dict.direction.linear2:
 				var branch = grid_ + direction
 				
 				if check_border(branch) and !child.insulations.has(branch) and !child.branchs.has(branch):
 					child.branchs.append(branch)
-			
-			#for direction in Global.dict.direction.hybrid:
-				#var branch = grid + direction
-				#
-				#if check_border(branch) and !child.grids.has(branch) and !child.branchs.has(branch):
-					#child.branchs.append(branch)
 	
-	#if !child.check_chain():
-	#	return null
-	
-	if !bourse.decorations.has(child.grids.size()):
-		bourse.decorations[child.grids.size()] = [child]
+	if !bourse.decoration_origins.has(child.grids.size()):
 		return child
 	else:
 		var flag = true
@@ -86,16 +95,16 @@ func create_child(grid_: Vector2i) -> Variant:
 						var _grid = Vector2i(grid)
 						
 						if flip:
-							_grid = Global.dict.flips[convoy_size][_grid]
+							_grid = Global.dict.flips[decoration_size][_grid]
 						
 						for _i in rotate:
-							_grid = Global.dict.rotates[convoy_size][_grid]
+							_grid = Global.dict.rotates[decoration_size][_grid]
 						
 						_grids.append(_grid)
 					
-					_grids.sort_custom(func(a, b): return a.y * convoy_size + a.x < b.y * convoy_size + b.x)
+					_grids.sort_custom(func(a, b): return a.y * decoration_size + a.x < b.y * decoration_size + b.x)
 					
-					for original in bourse.decorations[_grids.size()]:
+					for original in bourse.decoration_origins[_grids.size()]:
 						if original.grids == _grids:
 							flag = false
 							break
@@ -104,13 +113,12 @@ func create_child(grid_: Vector2i) -> Variant:
 						break
 		
 		if flag:
-			bourse.decorations[child.grids.size()].append(child)
 			return child
 	
 	return null
 	
 func init_segments() -> void:
-	var options = Global.dict.anchors[convoy_size].filter(func(a): return !grids.has(a))
+	var options = Global.dict.anchors[decoration_size].filter(func(a): return !grids.has(a))
 	var segments = []
 	
 	while !options.is_empty():
@@ -141,7 +149,7 @@ func init_segments() -> void:
 	segment_lengths.sort_custom(func(a, b): return a > b)
 	
 func check_border(grid_: Vector2i) -> bool:
-	return grid_.x >= 0 and grid_.y >= 0 and grid_.x < convoy_size and grid_.y < convoy_size
+	return grid_.x >= 0 and grid_.y >= 0 and grid_.x < decoration_size and grid_.y < decoration_size
 	
 func check_links() -> bool:
 	var links = [grids.back()]
@@ -208,7 +216,7 @@ func check_chains() -> bool:
 		#var indexs = []
 			#
 		#for grid in grids:
-			#indexs.append(grid.y * convoy_size + grid.x)
+			#indexs.append(grid.y * decoration_size + grid.x)
 		#
 		#result.append(indexs)
 		#
@@ -216,7 +224,7 @@ func check_chains() -> bool:
 		#var indexs = []
 		#
 		#for grid in segment:
-			#indexs.append(grid.y * convoy_size + grid.x)
+			#indexs.append(grid.y * decoration_size + grid.x)
 		#
 		#result.append(indexs)
 		#

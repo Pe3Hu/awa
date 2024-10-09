@@ -21,8 +21,8 @@ func roll_statistic() -> void:
 	#aspects.shuffle()
 	#values.shuffle()
 	
-	for _i in Global.dict.convoy.index[index].grids.size():
-		var grid = Global.dict.convoy.index[index].grids[_i]
+	for _i in Global.dict.decoration.index[index].grids.size():
+		var grid = Global.dict.decoration.index[index].grids[_i]
 		statistic.grids[aspects[_i]] = [grid]
 		statistic.values[aspects[_i]] = values[_i]
 	

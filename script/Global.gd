@@ -46,7 +46,8 @@ func init_dict() -> void:
 	init_pattern()
 	init_wagon()
 	init_contract()
-	init_convoy()
+	init_decoration()
+	init_composition()
 	
 func init_direction() -> void:
 	dict.direction = {}
@@ -127,6 +128,17 @@ func init_shape() -> void:
 		[5, 4, 4, 3],
 		[4, 4, 4, 4]
 	]
+	
+	dict.lengths = {}
+	dict.lengths[4] = [
+		[5, 4, 3]
+	]
+	dict.lengths[5] = [
+		[5, 5, 3, 3],
+		[5, 4, 4, 3],
+		[4, 4, 4, 4]
+	]
+	
 	#dict.segments[5] = [
 		#[17],
 		#[14, 3],
@@ -272,43 +284,84 @@ func init_contract() -> void:
 			
 			dict.contract.aspect[aspect].append(contract.title)
 	
-func init_convoy() -> void:
-	dict.convoy = {}
-	dict.convoy.index = {}
-	dict.convoy.size = {}
+func init_decoration() -> void:
+	dict.decoration = {}
+	dict.decoration.index = {}
+	dict.decoration.size = {}
 	var exceptions = ["index"]
 	
-	var path = "res://entities//convoy/convoy.json"
+	var path = "res://entities//decoration/decoration.json"
 	var array = load_data(path)
 	
-	for convoy in array:
-		convoy.index = int(convoy.index)
-		convoy.size = int(convoy.size)
+	for decoration in array:
+		decoration.index = int(decoration.index)
+		decoration.size = int(decoration.size)
 		var data = {}
 		data.grids = []
 		
-		for key in convoy:
+		for key in decoration:
 			if !exceptions.has(key):
 				if key == "indexs":
-					var words = convoy[key].split(",")
+					var words = decoration[key].split(",")
 					#data[key] = []
 					
 					for word in words:
 						#data[key].append(int(word))
-						var x = int(word) % convoy.size
-						var y = int(float(int(word)) / convoy.size)
+						var x = int(word) % decoration.size
+						var y = int(float(int(word)) / decoration.size)
 						var grid = Vector2i(x, y)
 						data.grids.append(grid)
 				else:
-					data[key] = convoy[key]
+					data[key] = decoration[key]
 		
-		dict.convoy.index[convoy.index] = data
+		dict.decoration.index[decoration.index] = data
 		
-		if !dict.convoy.size.has(convoy.size):
-			dict.convoy.size[convoy.size] = []
+		if !dict.decoration.size.has(decoration.size):
+			dict.decoration.size[decoration.size] = []
 			
-		dict.convoy.size[convoy.size].append(convoy.index)
+		dict.decoration.size[decoration.size].append(decoration.index)
 	
+	#dict.decoration.index = {}
+	#dict.decoration.size = {}
+	
+func init_composition() -> void:
+	dict.composition = {}
+	dict.composition.index = {}
+	dict.composition.size = {}
+	dict.composition.decoration = {}
+	
+	var path = "res://entities//composition/composition.json"
+	var file = FileAccess.open(path, FileAccess.READ)
+	var text = file.get_as_text()
+	
+	for str_0 in text.rsplit(";"):
+		var arr_1 = str_0.rsplit("/")
+		
+		if arr_1.size() > 1:
+			var data = {}
+			var index = int(arr_1[0])
+			data.decoration = int(arr_1[1])
+			data.patterns = []
+			var decoration_size = arr_1.size() + 1
+			
+			for _i in arr_1.size():
+				if _i > 1:
+					var arr_2 = arr_1[_i].rsplit(",")
+					var pattern = {}
+					pattern.index = int(arr_2[0])
+					var anchor_index = int(arr_2[1])
+					pattern.rotate = int(arr_2[2])
+					var x = anchor_index % decoration_size
+					var y = int(float(anchor_index) / decoration_size)
+					pattern.anchor = Vector2i(x ,y)
+					data.patterns.append(pattern)
+			
+			if !dict.composition.decoration.has(data.decoration):
+				dict.composition.decoration[data.decoration] = []
+			
+			dict.composition.decoration[data.decoration].append(index)
+			
+			dict.composition.index[index] = data
 	
 func init_color():
 	#var h = 360.0
@@ -332,9 +385,8 @@ func init_color():
 	#color.aspect[TokenResource.Aspect.BARRIER] = Color.from_hsv(210 / h, 0.9, 0.9)
 	#color.aspect[TokenResource.Aspect.STEALTH] = Color.from_hsv(115 / h, 0.9, 0.7)
 	
-func save(path_: String, data_: String):
-	var path = path_ + ".json"
-	var file = FileAccess.open(path, FileAccess.WRITE)
+func save(path_: String, data_): #: String
+	var file = FileAccess.open(path_, FileAccess.WRITE)
 	file.store_string(data_)
 	
 func load_data(path_: String):
