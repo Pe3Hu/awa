@@ -36,10 +36,9 @@ func _init(bourse_: BourseResource, index_: int) -> void:
 	#init_grids()
 	#
 #func init_grids() -> void:
-	#var conovy_description = Global.dict.convoy.index[decoration_index]
-	#decoration_size = conovy_description.size
-	#grids = Global.dict.anchors[decoration_size].filter(func(a): return !conovy_description.grids.has(a))
-	#
+	#var decoration_description = Global.dict.decoration.index[decoration_index]
+	#decoration_size = decoration_description.size
+	#grids = Global.dict.anchors[decoration_size].filter(func(a): return !decoration_description.grids.has(a))
 	
 func add_pattern(pattern_index_: int, pattern_anchor_: Vector2i, pattern_rotate_: int) -> void:
 	pattern_indexs.append(pattern_index_)
@@ -89,3 +88,16 @@ func get_childs_based_on_size(child_size_: int) -> Array:
 				childs.append(child)
 	
 	return childs
+	
+func check_draft(draft_: DraftResource) -> bool:
+	var uniques = []
+	
+	for index in draft_.pattern_indexs:
+		if !uniques.has(index):
+			uniques.append(index)
+	
+	for index in uniques:
+		if pattern_indexs.count(index) < draft_.pattern_indexs.count(index):
+			return false
+	
+	return true

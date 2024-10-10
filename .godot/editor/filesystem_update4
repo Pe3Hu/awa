@@ -3,15 +3,8 @@ res://shaders/gradient effects.gdshader
 res://shaders/spider web.gdshader
 res://shaders/ant line.gdshader
 res://shaders/octagon.gdshader
-res://entities/composition/composition.json
-res://script/Global.gd
-res://entities/convoy/convoy_resource.gd
 res://entities/bourse/bourse_resource.gd
+res://script/Global.gd
+res://entities/decoration/decoration_resource.gd
 res://entities/composition/composition_resource.gd
-res://entities/convoy/decoration_resource.gd
-res://entities/initiative/empty.tscn
-res://entities/initiative/empty_resource.gd
-res://entities/initiative/initiative.tscn
-res://entities/initiative/initiative.gd
-res://entities/corporation/corporation_resource.gd
-res://entities/decoration/decoration.json
+res://entities/decoration/draft_resource.gd

@@ -10,7 +10,7 @@ var branchs: Array[Vector2i]
 var chains: Array
 var insulations: Array
 
-var chain_size: int = 3
+var chain_size: int = 2
 var segment_lengths: Array[int]
 
 
@@ -66,7 +66,8 @@ func create_child(grid_: Vector2i) -> Variant:
 					if check_border(insulation) and !child.insulations.has(insulation) and !child.grids.has(insulation):
 						child.insulations.append(insulation)
 		
-			for grid in child.chains.back():
+			for grid in child.grids:
+			#for grid in child.chains.back():
 				for direction in Global.dict.direction.diagonal:
 					var branch = grid + direction
 					
@@ -207,9 +208,7 @@ func check_chains() -> bool:
 				_data.neighbors = _data.neighbors.filter(func (a): return !pair.has(a))
 	
 	return true
-
-
-
+	
 	#var result = []
 	#
 	#if true:

@@ -5,6 +5,7 @@ var contracts: Array[ContractResource]
 var corporations: Array[CorporationResource]
 var decorations: Array[DecorationResource]
 var compositions: Array[CompositionResource]
+var drafts: Array[DraftResource]
 
 var decoration_origins: Dictionary
 var composition_origins: Array[CompositionResource]
@@ -17,10 +18,15 @@ func _init() -> void:
 	var a = Time.get_unix_time_from_system()
 	Global._ready()
 	init_corporations()
+	#calc_decorations()
 	init_decorations()
-	init_contracts()
+	
+	#calc_compositions()
 	init_compositions()
-	corporations[0].init_initiatives()
+	init_drafts()
+	
+	#init_contracts()
+	#corporations[0].init_initiatives()
 	var b = Time.get_unix_time_from_system()
 	print(b - a)
 	
@@ -50,11 +56,11 @@ func roll_contract_type() -> String:
 	
 func calc_compositions() -> void:
 	var _decoration_sizes = [4, 5]#[[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ,21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34
-	var _decoration_indexs = [[0, 1], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ,21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34]]
+	var _decoration_indexs = [[0, 1], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20 ,21, 22]]#, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34]]
 	var _counters = {}
 	
 	#for decoration_size in Global.dict.decoration.size:
-		#for decoration_index in Global.dict.decoration.size[decoration_size]:
+	#	for decoration_index in Global.dict.decoration.size[decoration_size]:
 			#if decoration_index < 10:
 				#break
 	
@@ -62,8 +68,8 @@ func calc_compositions() -> void:
 		var decoration_size = _decoration_sizes[_k]
 		
 		for decoration_index in _decoration_indexs[_k]:
-			var _conovy_description = Global.dict.decoration.index[decoration_index]
-			#print(conovy_description.indexs)
+			var _decoration_description = Global.dict.decoration.index[decoration_index]
+			#print(decoration_description.indexs)
 			#var pattern_exceptions = [22, 11]
 			
 			for pattern_sizes in Global.dict.lengths[decoration_size]:
@@ -119,8 +125,9 @@ func calc_compositions() -> void:
 			#print([pattern_description.acronym, counters[pattern_index]])
 	
 	#if true:
-		#return
-		
+	#	return
+	
+	print(composition_origins.size())
 	var save_string = ""
 	#var datas = []
 	#print(compositions.size())
@@ -155,8 +162,8 @@ func calc_compositions() -> void:
 	Global.save(path, save_string)
 	
 func calc_decorations() -> void:
-	var _decoration_sizes = [4, 5]
-	var _decoration_limits = [4, 9]
+	var _decoration_sizes = [5]#[4, 5]
+	var _decoration_limits = [7]#[4, 6]
 	
 	for _i in _decoration_sizes.size():
 		var decoration_size = _decoration_sizes[_i]
@@ -192,26 +199,27 @@ func calc_decorations() -> void:
 			decoration.init_segments()
 			
 			if Global.dict.segments[decoration_size].has(decoration.segment_lengths):
-				decorations[decoration_size].append(decoration)
+				#decorations[decoration_size].append(decoration)
+				decorations.append(decoration)
 	
-	#var index = 0
-	#for decoration_size in decorations:
-		#Global.dict.decoration.size[decoration_size] = []
-		#
-		#for decoration in decoration_sizes[decoration_size]:
-			#var data = {}
-			#data.size = decoration_size
-			#data.grids = decoration.grids
-			#data.indexs = []
-			##var indexs = []
-			#
-			#for grid in decoration.grids:
-				#data.indexs.append(grid.y * decoration_size + grid.x)
-			#
-			#Global.dict.decoration.index[index] = data
-			#Global.dict.decoration.size[decoration_size].append(index)
-			#print([index, data.indexs, decoration.segment_lengths])
-			#index += 1
+	var index = 0
+	for decoration_size in _decoration_sizes:
+	#	Global.dict.decoration.size[decoration_size] = []
+	
+		for decoration in decorations:
+			var data = {}
+			data.size = decoration_size
+			data.grids = decoration.grids
+			data.indexs = []
+			#var indexs = []
+			
+			for grid in decoration.grids:
+				data.indexs.append(grid.y * decoration_size + grid.x)
+			
+			Global.dict.decoration.index[index] = data
+			Global.dict.decoration.size[decoration_size].append(index)
+			print([index, data.indexs, decoration.segment_lengths])
+			index += 1
 			##
 		##
 		#print(decorations[decoration_size].size())
@@ -245,3 +253,50 @@ func init_compositions() -> void:
 		var _composition = CompositionResource.new(self, index)
 	
 	print(compositions.size())
+	
+func init_drafts() -> void:
+	for pattern_sizes in Global.dict.drafts:
+		var pattern_indexs = {}
+		pattern_indexs[2] = [null]
+		pattern_indexs[0] = Global.dict.pattern.size[pattern_sizes[0]]
+		pattern_indexs[1] = Global.dict.pattern.size[pattern_sizes[1]]
+		
+		if pattern_sizes[2] > 0:
+			pattern_indexs[2] = Global.dict.pattern.size[pattern_sizes[2]]
+		
+		for pattern_0 in pattern_indexs[0]:
+			for pattern_1 in pattern_indexs[1]:
+				for pattern_2 in pattern_indexs[2]:
+					var patterns = [pattern_0, pattern_1]
+					
+					if pattern_2 != null:
+						patterns.append(pattern_2)
+					
+					var _draft = DraftResource.new(self, patterns)
+	
+	print(drafts.size())
+	
+	drafts.sort_custom(func(a, b): return a.compositions.size() < b.compositions.size())
+	var draft = drafts.front()
+	var _decorations = {}
+	
+	var letters = []
+	
+	for pattern_index in draft.pattern_indexs:
+		var pattern_description = Global.dict.pattern.index[pattern_index]
+		letters.append(pattern_description.acronym)
+	
+	print(letters)
+	
+	for composition in draft.compositions:
+		if !_decorations.has(composition.decoration):
+			_decorations[composition.decoration] = 0
+		
+		_decorations[composition.decoration] += 1
+	
+	for decoration in _decorations:
+		var indexs = []
+			
+		for grid in decoration.grids:
+			indexs.append(grid.y * decoration.decoration_size + grid.x)
+		print(indexs)

@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1728482912
+::res://::1728547333
 ::res://assets/::1727748994
 default_env.tres::Environment::-1::1690116911::0::1::::<><>::
 icon.png::CompressedTexture2D::2432420761471245026::1690116911::1727549041::1::::<><>::
@@ -12,41 +12,42 @@ Inter-Black.ttf::FontFile::2023361649885781834::1694723238::1727549041::1::::<><
 Roboto-Bold.ttf::FontFile::7183128479095054959::1663817230::1727549041::1::::<><>::
 Roboto-Light.ttf::FontFile::2934334192827154238::1663817230::1727549041::1::::<><>::
 Walter-Bold.ttf::FontFile::6104160909452173604::1570526552::1727549041::1::::<><>::
-::res://entities/::1728482908
+::res://entities/::1728482999
 white_256.png::CompressedTexture2D::4443828835105420596::1728084024::1728084042::1::::<><>::
 ::res://entities/board/::1728215796
 board.gd::GDScript::-1::1728207009::0::1::::Board<>PanelContainer<>::
 board.tscn::PackedScene::8042080202268162026::1728207303::0::1::::<><>::res://entities/board/board.gd
 board_resource.gd::GDScript::-1::1728215352::0::1::::BoardResource<>Resource<>::
-::res://entities/bourse/::1728482886
+::res://entities/bourse/::1728558813
 bourse.gd::GDScript::-1::1728210391::0::1::::Bourse<>PanelContainer<>::
-bourse.tscn::PackedScene::8203182980367346730::1728482886::0::1::::<><>::res://entities/bourse/bourse.gd<>res://entities/bourse/bourse_resource.gd
-bourse_resource.gd::GDScript::-1::1728482632::0::1::::BourseResource<>Resource<>::
+bourse.tscn::PackedScene::8203182980367346730::1728558813::0::1::::<><>::res://entities/bourse/bourse.gd<>res://entities/bourse/bourse_resource.gd
+bourse_resource.gd::GDScript::-1::1728558799::0::1::::BourseResource<>Resource<>::
 ::res://entities/chart/::1728213334
 chart.gd::GDScript::-1::1728200685::0::1::::Chart<>PanelContainer<>::
 chart.tscn::PackedScene::7611774599751825575::1728207303::0::1::::<><>::res://entities/chart/chart.gd<>res://shaders/octagon.gdshader<>uid://b4kvhgxgpcmd5::::res://entities/white_256.png<>uid://dsnx1d6tg2emm::::res://entities/token/compartment/token_compartment.tscn<>res://entities/token/compartment/token_compartment_resource.gd<>uid://crcwgo4o467rv::::res://entities/token/images/coin.png
 chart_resource.gd::GDScript::-1::1728213334::0::1::::ChartResource<>Resource<>::
-::res://entities/composition/::1728482416
+::res://entities/composition/::1728558810
 composition.gd::GDScript::-1::1728192457::0::1::::Composition<>PanelContainer<>::
 composition.json::JSON::-1::1728478576::0::1::::<><>::
 composition.tscn::PackedScene::4793501124996087263::1728207303::0::1::::<><>::res://entities/composition/composition.gd
-composition_resource.gd::GDScript::-1::1728482416::0::1::::CompositionResource<>Resource<>::
+composition_resource.gd::GDScript::-1::1728558810::0::1::::CompositionResource<>Resource<>::
 ::res://entities/contract/::1728215165
 contract.gd::GDScript::-1::1728208469::0::1::::Contract<>PanelContainer<>::
 contract.tscn::PackedScene::3563527656668574178::1728215165::0::1::::<><>::res://entities/contract/contract.gd
 contract_resource.gd::GDScript::-1::1728214454::0::1::::ContractResource<>Resource<>::
-::res://entities/convoy/::1728482912
+::res://entities/convoy/::1728482914
 contract.json::JSON::-1::1727855409::0::1::::<><>::
 convoy.gd::GDScript::-1::1728215295::0::1::::BoardConvoy<>Board<>::
 convoy.tscn::PackedScene::2893540688061607774::1728215686::0::1::::<><>::uid://dmtv5egd6dmj7::::res://entities/board/board.tscn<>res://entities/convoy/convoy.gd<>res://entities/convoy/convoy_resource.gd<>uid://dgpg2y16fw7u6::::res://entities/chart/chart.tscn
 convoy_resource.gd::GDScript::-1::1728479483::0::1::::ConvoyResource<>Resource<>::
-decoration_resource.gd::GDScript::-1::1728482416::0::1::::DecorationResource<>Resource<>::
-::res://entities/corporation/::1728482667
+::res://entities/corporation/::1728483021
 corporation.gd::GDScript::-1::1728210118::0::1::::Corporation<>PanelContainer<>::
 corporation.tscn::PackedScene::6032437566595338522::1728215165::0::1::::<><>::res://entities/corporation/corporation.gd
-corporation_resource.gd::GDScript::-1::1728482667::0::1::::CorporationResource<>Resource<>::
-::res://entities/decoration/::1728482912
-decoration.json::JSON::-1::1728480723::0::1::::<><>::
+corporation_resource.gd::GDScript::-1::1728483021::0::1::::CorporationResource<>Resource<>::
+::res://entities/decoration/::1728558473
+decoration 6.json::JSON::-1::1728552649::0::1::::<><>::
+decoration.json::JSON::-1::1728482929::0::1::::<><>::
+decoration_resource.gd::GDScript::-1::1728558473::0::1::::DecorationResource<>Resource<>::
 ::res://entities/empty/::1728303471
 empty.tscn::PackedScene::5291738769131499439::1728210089::0::1::::<><>::
 empty_resource.gd::GDScript::-1::1728210103::0::1::::<>Resource<>::
@@ -54,10 +55,6 @@ empty_resource.gd::GDScript::-1::1728210103::0::1::::<>Resource<>::
 hangar.gd::GDScript::-1::1728215692::0::1::::Hangar<>Board<>::
 hangar.tscn::PackedScene::7151644671205319278::1728215692::0::1::::<><>::uid://dmtv5egd6dmj7::::res://entities/board/board.tscn<>res://entities/hangar/hangar.gd<>res://entities/hangar/hangar_resource.gd
 hangar_resource.gd::GDScript::-1::1728219110::0::1::::HangarResource<>BoardResource<>::
-::res://entities/initiative/::1728482561
-initiative.gd::GDScript::-1::1728482561::0::1::::Initiative<>PanelContainer<>::
-initiative.tscn::PackedScene::4960821632862014354::1728482561::0::1::::<><>::res://entities/initiative/initiative.gd
-initiative_resource.gd::GDScript::-1::1728482534::0::1::::InitiativeResource<>Resource<>::
 ::res://entities/pattern/::1728081575
 pattern.json::JSON::-1::1727746657::0::1::::<><>::
 ::res://entities/slot/::1728082742
@@ -92,10 +89,10 @@ wagon_resource.gd::GDScript::-1::1728380160::0::1::::WagonResource<>BoardResourc
 ::res://entities/world/::1728210521
 world.gd::GDScript::-1::1728206927::0::1::::World<>Node<>::
 world.tscn::PackedScene::8246655032211948728::1728207030::0::1::::<><>::res://entities/world/world.gd<>uid://do4xhwky8pgte::::res://entities/bourse/bourse.tscn
-::res://script/::1728480690
-Global.gd::GDScript::-1::1728480690::0::1::::<>Node<>::
-::res://shaders/::1728482886
-ant line.gdshader::Shader::-1::1728482886::0::1::::<><>::
-gradient effects.gdshader::Shader::-1::1728482886::0::1::::<><>::
-octagon.gdshader::Shader::-1::1728482886::0::1::::<><>::
-spider web.gdshader::Shader::-1::1728482886::0::1::::<><>::
+::res://script/::1728558257
+Global.gd::GDScript::-1::1728558257::0::1::::<>Node<>::
+::res://shaders/::1728558813
+ant line.gdshader::Shader::-1::1728558813::0::1::::<><>::
+gradient effects.gdshader::Shader::-1::1728558813::0::1::::<><>::
+octagon.gdshader::Shader::-1::1728558813::0::1::::<><>::
+spider web.gdshader::Shader::-1::1728558813::0::1::::<><>::
