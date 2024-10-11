@@ -5,6 +5,7 @@ var bourse: BourseResource
 var decoration_size: int
 var index: int
 
+var indexs: Array[int]
 var grids: Array[Vector2i]
 var branchs: Array[Vector2i]
 var chains: Array
@@ -20,6 +21,10 @@ func _init(bourse_: BourseResource, index_: int) -> void:
 	var description = Global.dict.decoration.index[index]
 	decoration_size = description.size
 	grids.append_array(description.grids)
+	
+	for grid in grids:
+		var index = decoration_size * grid.y + grid.x
+		indexs.append(index)
 	
 	if !bourse.decoration_sizes.has(decoration_size):
 		bourse.decoration_sizes[decoration_size] = []

@@ -10,35 +10,41 @@ var pattern_indexs: Array[int]
 var pattern_anchors: Array[Vector2i]
 var pattern_rotates: Array[int]
 var grids = []
+var decoration_grids = []
 
 
-func _init(bourse_: BourseResource, index_: int) -> void:
+func _init(bourse_: BourseResource, decoration_index_: int) -> void:
 	bourse = bourse_
-	index = index_
-	var description = Global.dict.composition.index[index]
-	#decoration_size = description.patterns.size() + 1
-	decoration = bourse.decorations[description.decoration]
-	decoration_size = decoration.decoration_size
-	decoration_index = description.decoration
+	decoration_index = decoration_index_
+	decoration = bourse.decorations[decoration_index]
+	init_grids()
 	
-	for pattern in description.patterns:
-		add_pattern(pattern.index, pattern.anchor, pattern.rotate)
+func init_grids() -> void:
+	var description = Global.dict.decoration.index[decoration_index]
+	decoration_size = description.size
+	decoration_grids.append_array(description.grids)
+	grids = Global.dict.anchors[decoration_size].filter(func(a): return !description.grids.has(a))
 	
-	if !bourse.composition_decorations.has(decoration):
-		bourse.composition_decorations[decoration] = []
-	
-	bourse.composition_decorations[decoration].append(self)
-	bourse.compositions.append(self)
-	
-#func _init(bourse_: BourseResource, decoration_index_: int) -> void:
+#func _init(bourse_: BourseResource, index_: int) -> void:
 	#bourse = bourse_
-	#decoration_index = decoration_index_
-	#init_grids()
+	#index = index_
+	#var description = Global.dict.composition.index[index]
+	##decoration_size = description.patterns.size() + 1
+	#decoration = bourse.decorations[description.decoration]
+	#decoration_size = decoration.decoration_size
+	#decoration_index = description.decoration
 	#
-#func init_grids() -> void:
-	#var decoration_description = Global.dict.decoration.index[decoration_index]
-	#decoration_size = decoration_description.size
-	#grids = Global.dict.anchors[decoration_size].filter(func(a): return !decoration_description.grids.has(a))
+	#for pattern in description.patterns:
+		#add_pattern(pattern.index, pattern.anchor, pattern.rotate)
+	#
+	#if !bourse.composition_decorations.has(decoration):
+		#bourse.composition_decorations[decoration] = []
+	#
+	#bourse.composition_decorations[decoration].append(self)
+	#bourse.compositions.append(self)
+	#
+	#if !check_fail():
+		#pass
 	
 func add_pattern(pattern_index_: int, pattern_anchor_: Vector2i, pattern_rotate_: int) -> void:
 	pattern_indexs.append(pattern_index_)
@@ -82,22 +88,50 @@ func get_childs_based_on_size(child_size_: int) -> Array:
 	var childs = []
 	
 	for pattern_index in Global.dict.pattern.size[child_size_]:
-		for pattern_anchor in Global.dict.anchors[decoration_size]:
+		for pattern_anchor in grids:#Global.dict.anchors[decoration_size]:
 			for pattern_rotate in get_pattern_rotates(pattern_index, pattern_anchor):
 				var child = create_child(pattern_index, pattern_anchor, pattern_rotate)
 				childs.append(child)
+				
+				if !child.check_fail():
+					pass
 	
 	return childs
 	
 func check_draft(draft_: DraftResource) -> bool:
 	var uniques = []
 	
-	for index in draft_.pattern_indexs:
-		if !uniques.has(index):
-			uniques.append(index)
+	for _index in draft_.pattern_indexs:
+		if !uniques.has(_index):
+			uniques.append(_index)
 	
-	for index in uniques:
-		if pattern_indexs.count(index) < draft_.pattern_indexs.count(index):
+	for _index in uniques:
+		if pattern_indexs.count(_index) < draft_.pattern_indexs.count(_index):
+			return false
+	
+	return true
+	
+func get_pattern_acronyms() -> Array:
+	if !check_fail():
+		pass
+	
+	var acronyms = []
+	
+	for pattern_index in pattern_indexs:
+		acronyms.append(Global.dict.pattern.index[pattern_index].acronym)
+	
+	return acronyms
+	
+func check_fail() -> bool:
+	for pattern_anchor in pattern_anchors:
+		if decoration.grids.has(pattern_anchor):
+			return false
+	
+	return true
+	
+func check_calc_fail() -> bool:
+	for pattern_anchor in pattern_anchors:
+		if decoration_grids.has(pattern_anchor):
 			return false
 	
 	return true

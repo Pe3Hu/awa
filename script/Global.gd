@@ -48,6 +48,7 @@ func init_dict() -> void:
 	init_contract()
 	init_decoration()
 	init_composition()
+	init_draft()
 	
 func init_direction() -> void:
 	dict.direction = {}
@@ -73,6 +74,12 @@ func init_direction() -> void:
 		dict.direction.hybrid.append(direction)
 	
 func init_shape() -> void:
+	dict.status = {}
+	dict.status.next = {}
+	dict.status.next[WagonResource.Status.REPAIRING] = WagonResource.Status.SHOWCASING
+	dict.status.next[WagonResource.Status.SHOWCASING] = WagonResource.Status.OPERATING
+	dict.status.next[WagonResource.Status.OPERATING] = WagonResource.Status.REPAIRING
+	
 	dict.condition = {}
 	dict.condition.size = {}
 	dict.condition.size[4] = [
@@ -127,7 +134,8 @@ func init_shape() -> void:
 	
 	dict.lengths = {}
 	dict.lengths[4] = [
-		[5, 4, 3]
+		[5, 4, 3],
+		[4, 4, 4]
 	]
 	dict.lengths[5] = [
 		[5, 5, 5, 3],
@@ -139,6 +147,7 @@ func init_shape() -> void:
 	dict.drafts = [
 		[5, 5, 0],
 		[5, 4, 0],
+		[4, 4, 0],
 		[5, 4, 3],
 		[5, 3, 3],
 		[4, 4, 4],
@@ -146,9 +155,9 @@ func init_shape() -> void:
 		[4, 3, 3],
 		[3, 3, 3]
 	]
-	dict.drafts = [
-		[3, 3, 3]
-	]
+	#dict.drafts = [
+		#[3, 3, 3]
+	#]
 	
 	#dict.segments[5] = [
 		#[17],
@@ -411,12 +420,42 @@ func init_composition() -> void:
 					pattern.anchor = Vector2i(x ,y)
 					data.patterns.append(pattern)
 			
+			data.patterns.sort_custom(func(a, b): return a.index < b.index)
+			
 			if !dict.composition.decoration.has(data.decoration):
 				dict.composition.decoration[data.decoration] = []
 			
 			dict.composition.decoration[data.decoration].append(index)
 			
 			dict.composition.index[index] = data
+	
+func init_draft() -> void:
+	dict.draft = {}
+	dict.draft.index = {}
+	
+	var path = "res://entities//decoration/draft.json"
+	var file = FileAccess.open(path, FileAccess.READ)
+	var text = file.get_as_text()
+	
+	for str_0 in text.rsplit(";"):
+		var arr_1 = str_0.rsplit("/")
+		
+		if arr_1.size() > 1:
+			var data = {}
+			var index = int(arr_1[0])
+			data.patterns = []
+			data.compositions = []
+			var arr_2 = arr_1[1].rsplit(",")
+			
+			for _i in arr_2.size():
+				data.patterns.append(int(arr_2[_i]))
+			
+			arr_2 = arr_1[2].rsplit(",")
+			
+			for _i in arr_2.size():
+				data.compositions.append(int(arr_2[_i]))
+			
+			dict.draft.index[index] = data
 	
 func init_color():
 	#var h = 360.0
@@ -475,25 +514,25 @@ func get_random_key(dict_: Dictionary):
 	print("!bug! index_r error in get_random_key func")
 	return null
 	
-func get_all_combinations(array_: Array) -> Array:
+func get_all_combinations_based_on_size(array_: Array, size_: int) -> Array:
 	var combinations = {}
 	combinations[0] = array_.duplicate()
 	combinations[1] = []
 	
-	for child in array_.front():
+	for child in array_:
 		combinations[1].append([child])
 	
-	for _i in array_.size() - 1:
+	for _i in size_ - 1:
 		set_combinations_based_on_size(combinations, _i + 2)
 	
-	return combinations[array_.size()]
+	return combinations[size_]
 	
 func set_combinations_based_on_size(combinations_: Dictionary, size_: int) -> void:
-	var parents = combinations_[size_-1]
+	var parents = combinations_[size_ - 1]
 	combinations_[size_] = []
 	
 	for parent in parents:
-		for child in combinations_[0][size_ - 1]:
+		for child in combinations_[0]:
 			if !parent.has(child):
 				var combination = []
 				combination.append_array(parent)

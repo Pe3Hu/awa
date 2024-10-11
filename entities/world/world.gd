@@ -11,8 +11,8 @@ class_name World extends Node
 
 func _ready() -> void:
 	#datas.filter(func (a): return true)
-	#datas.sort_custom(func(a, b): return a.value < b.value)
-	#012 description
+	#datas.sort_custom(func(a, b): return a > b)
+	#210 description
 	#Global.rng.randomize()
 	#var random = Global.rng.randi_range(0, 1)
 	#await get_tree().physics_frame

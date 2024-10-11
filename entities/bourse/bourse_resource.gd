@@ -9,24 +9,32 @@ var drafts: Array[DraftResource]
 
 var decoration_origins: Dictionary
 var composition_origins: Array[CompositionResource]
+var draft_origins: Array[DraftResource]
 
 var decoration_sizes: Dictionary
 var composition_decorations: Dictionary
+var pattern_drafts: Dictionary
 
 
 func _init() -> void:
 	var a = Time.get_unix_time_from_system()
 	Global._ready()
-	init_corporations()
 	#calc_decorations()
 	init_decorations()
 	
-	#calc_compositions()
-	init_compositions()
-	init_drafts()
+	calc_compositions()
 	
+	#init_compositions()
+	#
+	##calc_drafts()
+	#init_drafts()
+	#
 	#init_contracts()
+	#init_corporations()
+	#
+	#corporations[0].hangar.finish_charging_wagons()
 	#corporations[0].init_initiatives()
+	#
 	var b = Time.get_unix_time_from_system()
 	print(b - a)
 	
@@ -35,24 +43,107 @@ func init_corporations() -> void:
 		var _corporation = CorporationResource.new(self)
 	
 func init_contracts() -> void:
-	for _i in 1:
-		add_contract()
+	var decoration_size = 5
 	
-func add_contract() -> void:
+	for _i in 3:
+		add_contract(decoration_size)
+	
+func add_contract(decoration_size_: int) -> void:
 	var contract_type = roll_contract_type()
-	var decoration_size = 4
-	var decoration_index = roll_decoration_index(decoration_size)
-	var convoy = ConvoyResource.new(decoration_size, decoration_index)
+	var decoration_index = roll_decoration_index(decoration_size_)
+	var decoration = decorations[decoration_index]
 	#var reward = 
-	var _contract = ContractResource.new(self, contract_type, convoy)
+	#var Statistic = 
+	var _contract = ContractResource.new(self, contract_type, decoration)
 	
-func roll_decoration_index(size_: int) -> int:
-	var index = Global.dict.decoration.size[size_][0]#.pick_random()
+func roll_decoration_index(decoration_size_: int) -> int:
+	var index = Global.dict.decoration.size[decoration_size_][contracts.size()]#.pick_random()
 	return index
 	
 func roll_contract_type() -> String:
-	var type = Global.dict.contract.title.keys()[0]#.pick_random()
+	var type = Global.dict.contract.title.keys()[contracts.size()]#.pick_random()
 	return type
+	
+func calc_decorations() -> void:
+	var _decoration_sizes = [5]#[4, 5]
+	var _decoration_limits = [7]#[4, 6]
+	
+	for _i in _decoration_sizes.size():
+		var decoration_size = _decoration_sizes[_i]
+		var decoration_limit = _decoration_limits[_i]
+		decoration_origins[decoration_size] = []
+		
+		var origin_decoration = DecorationResource.new(self, decoration_size)
+		origin_decoration.branchs.append_array(Global.dict.anchors[decoration_size])
+		var waves = [
+			[origin_decoration]
+		]
+		
+		for _j in range(0, decoration_limit, 1):
+			var parents = waves[_j]
+			var childs = []
+			
+			for parent in parents:
+				for anchor in parent.branchs:
+					var child = parent.create_child(anchor)
+					
+					if child != null:
+						if !decoration_origins.has(child.grids.size()):
+							decoration_origins[child.grids.size()] = []
+						
+						decoration_origins[child.grids.size()].append(child)
+						childs.append(child)
+			
+			waves.append(childs)
+		
+		for _j in waves[decoration_limit].size():
+		#for _j in range(waves[decoration_limit].size() -1, -1, -1):
+			var decoration = waves[decoration_limit][_j]
+			decoration.init_segments()
+			
+			if Global.dict.segments[decoration_size].has(decoration.segment_lengths):
+				#decorations[decoration_size].append(decoration)
+				decorations.append(decoration)
+	
+	var index = 0
+	for decoration_size in _decoration_sizes:
+	#	Global.dict.decoration.size[decoration_size] = []
+	
+		for decoration in decorations:
+			var data = {}
+			data.size = decoration_size
+			data.grids = decoration.grids
+			data.indexs = []
+			#var indexs = []
+			
+			for grid in decoration.grids:
+				data.indexs.append(grid.y * decoration_size + grid.x)
+			
+			Global.dict.decoration.index[index] = data
+			Global.dict.decoration.size[decoration_size].append(index)
+			print([index, data.indexs, decoration.segment_lengths])
+			index += 1
+			##
+		##
+		#print(decorations[decoration_size].size())
+
+#func get_pattern_rotates(anchor_: Vector2i, pattern_index_: int, grids_: Array) -> Array:
+	#var pattern_description = Global.dict.pattern.index[pattern_index_]
+	#var rotates = []
+	#
+	#for rotate in pattern_description.rotates:
+		#var flag = true
+		#
+		#for patter_grid in pattern_description.rotates[rotate]:
+			#var grid = anchor_ + patter_grid
+			#
+			#if !grids_.has(grid):
+				#flag = false
+		#
+		#if flag:
+			#rotates.append(rotate)
+	#
+	#return rotates
 	
 func calc_compositions() -> void:
 	var _decoration_sizes = [4, 5]#[[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ,21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34
@@ -161,100 +252,19 @@ func calc_compositions() -> void:
 	var path = "res://entities/composition/composition.json"
 	Global.save(path, save_string)
 	
-func calc_decorations() -> void:
-	var _decoration_sizes = [5]#[4, 5]
-	var _decoration_limits = [7]#[4, 6]
-	
-	for _i in _decoration_sizes.size():
-		var decoration_size = _decoration_sizes[_i]
-		var decoration_limit = _decoration_limits[_i]
-		decoration_origins[decoration_size] = []
-		
-		var origin_decoration = DecorationResource.new(self, decoration_size)
-		origin_decoration.branchs.append_array(Global.dict.anchors[decoration_size])
-		var waves = [
-			[origin_decoration]
-		]
-		
-		for _j in range(0, decoration_limit, 1):
-			var parents = waves[_j]
-			var childs = []
-			
-			for parent in parents:
-				for anchor in parent.branchs:
-					var child = parent.create_child(anchor)
-					
-					if child != null:
-						if !decoration_origins.has(child.grids.size()):
-							decoration_origins[child.grids.size()] = []
-						
-						decoration_origins[child.grids.size()].append(child)
-						childs.append(child)
-			
-			waves.append(childs)
-		
-		for _j in waves[decoration_limit].size():
-		#for _j in range(waves[decoration_limit].size() -1, -1, -1):
-			var decoration = waves[decoration_limit][_j]
-			decoration.init_segments()
-			
-			if Global.dict.segments[decoration_size].has(decoration.segment_lengths):
-				#decorations[decoration_size].append(decoration)
-				decorations.append(decoration)
-	
-	var index = 0
-	for decoration_size in _decoration_sizes:
-	#	Global.dict.decoration.size[decoration_size] = []
-	
-		for decoration in decorations:
-			var data = {}
-			data.size = decoration_size
-			data.grids = decoration.grids
-			data.indexs = []
-			#var indexs = []
-			
-			for grid in decoration.grids:
-				data.indexs.append(grid.y * decoration_size + grid.x)
-			
-			Global.dict.decoration.index[index] = data
-			Global.dict.decoration.size[decoration_size].append(index)
-			print([index, data.indexs, decoration.segment_lengths])
-			index += 1
-			##
-		##
-		#print(decorations[decoration_size].size())
-
-#func get_pattern_rotates(anchor_: Vector2i, pattern_index_: int, grids_: Array) -> Array:
-	#var pattern_description = Global.dict.pattern.index[pattern_index_]
-	#var rotates = []
-	#
-	#for rotate in pattern_description.rotates:
-		#var flag = true
-		#
-		#for patter_grid in pattern_description.rotates[rotate]:
-			#var grid = anchor_ + patter_grid
-			#
-			#if !grids_.has(grid):
-				#flag = false
-		#
-		#if flag:
-			#rotates.append(rotate)
-	#
-	#return rotates
-	
 func init_decorations() -> void:
 	for index in Global.dict.decoration.index:
 		var _decoration = DecorationResource.new(self, index)
 	
-	print(decorations.size())
+	#print(decorations.size())
 	
 func init_compositions() -> void:
 	for index in Global.dict.composition.index:
 		var _composition = CompositionResource.new(self, index)
 	
-	print(compositions.size())
+	#print(compositions.size())
 	
-func init_drafts() -> void:
+func calc_drafts() -> void:
 	for pattern_sizes in Global.dict.drafts:
 		var pattern_indexs = {}
 		pattern_indexs[2] = [null]
@@ -274,29 +284,63 @@ func init_drafts() -> void:
 					
 					var _draft = DraftResource.new(self, patterns)
 	
-	print(drafts.size())
+	print(draft_origins.size())
 	
-	drafts.sort_custom(func(a, b): return a.compositions.size() < b.compositions.size())
-	var draft = drafts.front()
-	var _decorations = {}
+	var save_string = ""
+	#var datas = []
+	#print(compositions.size())
+	#draft_origins = [draft_origins.front()]
 	
-	var letters = []
-	
-	for pattern_index in draft.pattern_indexs:
-		var pattern_description = Global.dict.pattern.index[pattern_index]
-		letters.append(pattern_description.acronym)
-	
-	print(letters)
-	
-	for composition in draft.compositions:
-		if !_decorations.has(composition.decoration):
-			_decorations[composition.decoration] = 0
+	for draft in draft_origins:
+		var data = {}
+		data.index = draft_origins.find(draft)
+		data.patterns = draft.pattern_indexs.duplicate()
+		var string = str(data.index) + "/"
+		data.compositions = []
 		
-		_decorations[composition.decoration] += 1
-	
-	for decoration in _decorations:
-		var indexs = []
+		for pattern_index in draft.pattern_indexs:
+			string += str(pattern_index) + ","
 			
-		for grid in decoration.grids:
-			indexs.append(grid.y * decoration.decoration_size + grid.x)
-		print(indexs)
+		string = string.erase(string.length() - 1)
+		string += "/"
+		
+		for composition in draft.compositions:
+			string += str(composition.index) + ","
+		
+		string = string.erase(string.length() - 1)
+		string += ";"
+		save_string += string
+		#datas.append(data)
+	
+	var path = "res://entities/decoration/draft.json"
+	Global.save(path, save_string)
+	
+	#drafts.sort_custom(func(a, b): return a.compositions.size() < b.compositions.size())
+	#var draft = drafts.front()
+	#var _decorations = {}
+	#var letters = []
+	#
+	#for pattern_index in draft.pattern_indexs:
+		#var pattern_description = Global.dict.pattern.index[pattern_index]
+		#letters.append(pattern_description.acronym)
+	#
+	#print(letters)
+	#
+	#for composition in draft.compositions:
+		#if !_decorations.has(composition.decoration):
+			#_decorations[composition.decoration] = 0
+		#
+		#_decorations[composition.decoration] += 1
+	#
+	#for decoration in _decorations:
+		#var indexs = []
+			#
+		#for grid in decoration.grids:
+			#indexs.append(grid.y * decoration.decoration_size + grid.x)
+		#print(indexs)
+	
+func init_drafts() -> void:
+	for index in Global.dict.draft.index:
+		var _draft = DraftResource.new(self, index)
+	
+	#print(drafts.size())

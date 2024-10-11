@@ -2,13 +2,14 @@ class_name ContractResource extends Resource
 
 
 var bourse: BourseResource
-var convoy: ConvoyResource
+var decoration: DecorationResource
 #reward
 var type: String
 
 
-func _init(bourse_: BourseResource, type_: String, convoy_: ConvoyResource) -> void:
+func _init(bourse_: BourseResource, type_: String, decoration_: DecorationResource) -> void:
 	bourse = bourse_
 	bourse.contracts.append(self)
 	type = type_
-	convoy = convoy_
+	decoration = decoration_
+	print(decoration_.index)

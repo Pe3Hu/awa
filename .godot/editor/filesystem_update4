@@ -5,6 +5,14 @@ res://shaders/ant line.gdshader
 res://shaders/octagon.gdshader
 res://entities/bourse/bourse_resource.gd
 res://script/Global.gd
-res://entities/decoration/decoration_resource.gd
 res://entities/composition/composition_resource.gd
 res://entities/decoration/draft_resource.gd
+res://entities/world/world.gd
+res://entities/hangar/hangar_resource.gd
+res://entities/corporation/corporation_resource.gd
+res://entities/wagon/wagon_resource.gd
+res://entities/contract/contract_resource.gd
+res://entities/decoration/decoration_resource.gd
+res://entities/reward/reward.tscn
+res://entities/reward/reward.gd
+res://entities/reward/reward_resource.gd
