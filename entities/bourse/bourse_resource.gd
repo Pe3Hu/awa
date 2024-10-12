@@ -22,18 +22,17 @@ func _init() -> void:
 	#calc_decorations()
 	init_decorations()
 	
-	calc_compositions()
+	#calc_compositions()
+	init_compositions()
 	
-	#init_compositions()
-	#
-	##calc_drafts()
-	#init_drafts()
-	#
-	#init_contracts()
-	#init_corporations()
-	#
-	#corporations[0].hangar.finish_charging_wagons()
-	#corporations[0].init_initiatives()
+	#calc_drafts()
+	init_drafts()
+	
+	init_contracts()
+	init_corporations()
+	
+	corporations[0].hangar.finish_charging_wagons()
+	corporations[0].init_initiatives()
 	#
 	var b = Time.get_unix_time_from_system()
 	print(b - a)
@@ -126,24 +125,6 @@ func calc_decorations() -> void:
 			##
 		##
 		#print(decorations[decoration_size].size())
-
-#func get_pattern_rotates(anchor_: Vector2i, pattern_index_: int, grids_: Array) -> Array:
-	#var pattern_description = Global.dict.pattern.index[pattern_index_]
-	#var rotates = []
-	#
-	#for rotate in pattern_description.rotates:
-		#var flag = true
-		#
-		#for patter_grid in pattern_description.rotates[rotate]:
-			#var grid = anchor_ + patter_grid
-			#
-			#if !grids_.has(grid):
-				#flag = false
-		#
-		#if flag:
-			#rotates.append(rotate)
-	#
-	#return rotates
 	
 func calc_compositions() -> void:
 	var _decoration_sizes = [4, 5]#[[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ,21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34
@@ -224,24 +205,29 @@ func calc_compositions() -> void:
 	#print(compositions.size())
 	
 	for composition in composition_origins:
+		var orders = composition.pattern_indexs.duplicate()
+		orders.sort_custom(func(a, b): return a > b)
+	
 		var data = {}
 		data.index = composition_origins.find(composition)
 		data.decoration = composition.decoration_index
 		var string = str(data.index) + "/" + str(data.decoration) + "/"
 		data.patterns = []
 		
-		for _i in composition.pattern_indexs.size():
+		for order in orders:
+			var _i = composition.pattern_indexs.find(order)
 			var pattern = []
 			var anchor_index = composition.pattern_anchors[_i].y * composition.decoration_size + composition.pattern_anchors[_i].x
 			pattern.append_array([composition.pattern_indexs[_i], anchor_index, composition.pattern_rotates[_i]])
 			
-			for _index in pattern:
-				string += str(_index)
-				
-				if pattern.find(_index) != pattern.size() - 1:
-					string += ","
-				else:
-					string +=  "/"
+			string += str(pattern[0]) + "," + str(pattern[1]) + "," + str(pattern[2]) + "/"
+			#for _index in pattern:
+				#string += str(_index)
+				#
+				#if pattern.find(_index) != pattern.size() - 1:
+					#string += ","
+				#else:
+					#string +=  "/"
 			#data.patterns.append(pattern)
 		
 		string = string.erase(string.length() - 1)
@@ -344,3 +330,25 @@ func init_drafts() -> void:
 		var _draft = DraftResource.new(self, index)
 	
 	#print(drafts.size())
+
+
+
+
+#func get_pattern_rotates(anchor_: Vector2i, pattern_index_: int, grids_: Array) -> Array:
+	#var pattern_description = Global.dict.pattern.index[pattern_index_]
+	#var rotates = []
+	#
+	#for rotate in pattern_description.rotates:
+		#var flag = true
+		#
+		#for patter_grid in pattern_description.rotates[rotate]:
+			#var grid = anchor_ + patter_grid
+			#
+			#if !grids_.has(grid):
+				#flag = false
+		#
+		#if flag:
+			#rotates.append(rotate)
+	#
+	#return rotates
+	

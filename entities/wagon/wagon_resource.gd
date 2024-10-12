@@ -38,8 +38,8 @@ func _init(hangar_: HangarResource, pattern_index_: int, type_: String) -> void:
 	roll_statistic()
 	
 func roll_statistic() -> void:
-	statistic = StatisticResource.new()
-	statistic.values = Global.dict.wagon.title[type].aspects.duplicate()#.pick_random().duplicate()
+	statistic = StatisticResource.new(Global.dict.wagon.title[type].aspects)
+	#statistic.values = Global.dict.wagon.title[type].aspects.duplicate()#.pick_random().duplicate()
 	var aspects = statistic.values.keys()#.shuffle()
 	var grids = rotates[0].duplicate()#.shuffle()
 	#aspects.shuffle()

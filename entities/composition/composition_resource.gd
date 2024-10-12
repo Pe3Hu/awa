@@ -13,38 +13,39 @@ var grids = []
 var decoration_grids = []
 
 
-func _init(bourse_: BourseResource, decoration_index_: int) -> void:
-	bourse = bourse_
-	decoration_index = decoration_index_
-	decoration = bourse.decorations[decoration_index]
-	init_grids()
-	
-func init_grids() -> void:
-	var description = Global.dict.decoration.index[decoration_index]
-	decoration_size = description.size
-	decoration_grids.append_array(description.grids)
-	grids = Global.dict.anchors[decoration_size].filter(func(a): return !description.grids.has(a))
-	
-#func _init(bourse_: BourseResource, index_: int) -> void:
+#func _init(bourse_: BourseResource, decoration_index_: int) -> void:
 	#bourse = bourse_
-	#index = index_
-	#var description = Global.dict.composition.index[index]
-	##decoration_size = description.patterns.size() + 1
-	#decoration = bourse.decorations[description.decoration]
-	#decoration_size = decoration.decoration_size
+	#decoration_index = decoration_index_
+	#decoration = bourse.decorations[decoration_index]
+	#init_grids()
+	#
+#func init_grids() -> void:
+	#var description = Global.dict.decoration.index[decoration_index]
+	#decoration_size = description.size
+	#decoration_grids.append_array(description.grids)
+	#grids = Global.dict.anchors[decoration_size].filter(func(a): return !description.grids.has(a))
+	
+func _init(bourse_: BourseResource, index_: int) -> void:
+	bourse = bourse_
+	index = index_
+	var description = Global.dict.composition.index[index]
+	#decoration_size = description.patterns.size() + 1
+	decoration = bourse.decorations[description.decoration]
+	decoration.compositions.append(self)
+	decoration_size = decoration.decoration_size
 	#decoration_index = description.decoration
-	#
-	#for pattern in description.patterns:
-		#add_pattern(pattern.index, pattern.anchor, pattern.rotate)
-	#
-	#if !bourse.composition_decorations.has(decoration):
-		#bourse.composition_decorations[decoration] = []
-	#
-	#bourse.composition_decorations[decoration].append(self)
-	#bourse.compositions.append(self)
-	#
-	#if !check_fail():
-		#pass
+	
+	for pattern in description.patterns:
+		add_pattern(pattern.index, pattern.anchor, pattern.rotate)
+	
+	if !bourse.composition_decorations.has(decoration):
+		bourse.composition_decorations[decoration] = []
+	
+	bourse.composition_decorations[decoration].append(self)
+	bourse.compositions.append(self)
+	
+	if !check_fail():
+		pass
 	
 func add_pattern(pattern_index_: int, pattern_anchor_: Vector2i, pattern_rotate_: int) -> void:
 	pattern_indexs.append(pattern_index_)
@@ -132,6 +133,39 @@ func check_fail() -> bool:
 func check_calc_fail() -> bool:
 	for pattern_anchor in pattern_anchors:
 		if decoration_grids.has(pattern_anchor):
+			return false
+	
+	return true
+	
+#func order_patterns() -> void:
+	#var order = pattern_indexs.duplicate()
+	#pass
+	#order.sort_custom(func(a, b): return a > b)
+	#pattern_indexs.sort_custom(func(a, b): return order.find(pattern_indexs.find(a)) > order.find(pattern_indexs.find(b)))
+	#pattern_anchors.sort_custom(func(a, b): return order.find(pattern_anchors.find(a)) > order.find(pattern_anchors.find(b)))
+	#pattern_rotates.sort_custom(func(a, b): return order.find(pattern_rotates.find(a)) > order.find(pattern_rotates.find(b)))
+	#pass
+	
+func check_initiative_on_surpluses(initiative_: InitiativeResource) -> bool:
+	var counters = {}
+	
+	for pattern_index in pattern_indexs:
+		if !counters.has(pattern_index):
+			counters[pattern_index] = 0
+		
+		counters[pattern_index] += 1
+	
+	for pattern_index in initiative_.pattern_available_indexes:
+		if counters.has(pattern_index):
+			counters[pattern_index] -= 1
+			
+			if counters[pattern_index] == 0:
+				counters.erase(pattern_index)
+	
+	for pattern_index in initiative_.pattern_missing_indexs:
+		if !counters.has(pattern_index):
+			return false
+		elif counters[pattern_index] != 1:
 			return false
 	
 	return true

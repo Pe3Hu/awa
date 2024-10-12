@@ -406,7 +406,7 @@ func init_composition() -> void:
 			var index = int(arr_1[0])
 			data.decoration = int(arr_1[1])
 			data.patterns = []
-			var decoration_size = arr_1.size() + 1
+			var decoration_size = Global.dict.decoration.index[data.decoration].size
 			
 			for _i in arr_1.size():
 				if _i > 1:

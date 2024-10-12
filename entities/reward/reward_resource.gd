@@ -1,4 +1,5 @@
 class_name RewardResource extends Resource
 
 
-#cl
+enum gem {SAPPHIRE, AMETHYST, EMERALD, RUBY}
+enum fuel {LIQUID, GAS}

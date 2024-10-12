@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1728647565
+::res://::1728740471
 ::res://assets/::1727748994
 default_env.tres::Environment::-1::1690116911::0::1::::<><>::
 icon.png::CompressedTexture2D::2432420761471245026::1690116911::1727549041::1::::<><>::
@@ -18,50 +18,52 @@ white_256.png::CompressedTexture2D::4443828835105420596::1728084024::1728084042:
 board.gd::GDScript::-1::1728207009::0::1::::Board<>PanelContainer<>::
 board.tscn::PackedScene::8042080202268162026::1728207303::0::1::::<><>::res://entities/board/board.gd
 board_resource.gd::GDScript::-1::1728215352::0::1::::BoardResource<>Resource<>::
-::res://entities/bourse/::1728646890
+::res://entities/bourse/::1728744243
 bourse.gd::GDScript::-1::1728210391::0::1::::Bourse<>PanelContainer<>::
-bourse.tscn::PackedScene::8203182980367346730::1728646890::0::1::::<><>::res://entities/bourse/bourse.gd<>res://entities/bourse/bourse_resource.gd
-bourse_resource.gd::GDScript::-1::1728646682::0::1::::BourseResource<>Resource<>::
+bourse.tscn::PackedScene::8203182980367346730::1728744243::0::1::::<><>::res://entities/bourse/bourse.gd<>res://entities/bourse/bourse_resource.gd
+bourse_resource.gd::GDScript::-1::1728739872::0::1::::BourseResource<>Resource<>::
 ::res://entities/chart/::1728213334
 chart.gd::GDScript::-1::1728200685::0::1::::Chart<>PanelContainer<>::
 chart.tscn::PackedScene::7611774599751825575::1728207303::0::1::::<><>::res://entities/chart/chart.gd<>res://shaders/octagon.gdshader<>uid://b4kvhgxgpcmd5::::res://entities/white_256.png<>uid://dsnx1d6tg2emm::::res://entities/token/compartment/token_compartment.tscn<>res://entities/token/compartment/token_compartment_resource.gd<>uid://crcwgo4o467rv::::res://entities/token/images/coin.png
 chart_resource.gd::GDScript::-1::1728213334::0::1::::ChartResource<>Resource<>::
-::res://entities/composition/::1728646890
+::res://entities/composition/::1728742781
 composition.gd::GDScript::-1::1728192457::0::1::::Composition<>PanelContainer<>::
-composition.json::JSON::-1::1728646971::0::1::::<><>::
+composition.json::JSON::-1::1728739185::0::1::::<><>::
 composition.tscn::PackedScene::4793501124996087263::1728207303::0::1::::<><>::res://entities/composition/composition.gd
-composition_resource.gd::GDScript::-1::1728646890::0::1::::CompositionResource<>Resource<>::
-::res://entities/contract/::1728643345
+composition_resource.gd::GDScript::-1::1728742781::0::1::::CompositionResource<>Resource<>::
+::res://entities/contract/::1728744274
 contract.gd::GDScript::-1::1728208469::0::1::::Contract<>PanelContainer<>::
 contract.tscn::PackedScene::3563527656668574178::1728215165::0::1::::<><>::res://entities/contract/contract.gd
-contract_resource.gd::GDScript::-1::1728643345::0::1::::ContractResource<>Resource<>::
+contract_resource.gd::GDScript::-1::1728744274::0::1::::ContractResource<>Resource<>::
 ::res://entities/convoy/::1728482914
 contract.json::JSON::-1::1727855409::0::1::::<><>::
 convoy.gd::GDScript::-1::1728215295::0::1::::BoardConvoy<>Board<>::
 convoy.tscn::PackedScene::2893540688061607774::1728215686::0::1::::<><>::uid://dmtv5egd6dmj7::::res://entities/board/board.tscn<>res://entities/convoy/convoy.gd<>res://entities/convoy/convoy_resource.gd<>uid://dgpg2y16fw7u6::::res://entities/chart/chart.tscn
 convoy_resource.gd::GDScript::-1::1728479483::0::1::::ConvoyResource<>Resource<>::
-::res://entities/corporation/::1728645917
+::res://entities/corporation/::1728744165
 corporation.gd::GDScript::-1::1728210118::0::1::::Corporation<>PanelContainer<>::
 corporation.tscn::PackedScene::6032437566595338522::1728215165::0::1::::<><>::res://entities/corporation/corporation.gd
-corporation_resource.gd::GDScript::-1::1728645917::0::1::::CorporationResource<>Resource<>::
-::res://entities/decoration/::1728645629
+corporation_resource.gd::GDScript::-1::1728744165::0::1::::CorporationResource<>Resource<>::
+initiative_resource.gd::GDScript::-1::1728744165::0::1::::InitiativeResource<>Resource<>::
+::res://entities/decoration/::1728742244
 decoration 6.json::JSON::-1::1728552649::0::1::::<><>::
 decoration.json::JSON::-1::1728558230::0::1::::<><>::
-decoration_resource.gd::GDScript::-1::1728645629::0::1::::DecorationResource<>Resource<>::
-draft.json::JSON::-1::1728637249::0::1::::<><>::
-draft_resource.gd::GDScript::-1::1728642286::0::1::::DraftResource<>Resource<>::
-::res://entities/empty/::1728303471
+decoration_resource.gd::GDScript::-1::1728742244::0::1::::DecorationResource<>Resource<>::
+draft.json::JSON::-1::1728739776::0::1::::<><>::
+draft_resource.gd::GDScript::-1::1728739872::0::1::::DraftResource<>Resource<>::
+::res://entities/empty/::1728740471
 empty.tscn::PackedScene::5291738769131499439::1728210089::0::1::::<><>::
 empty_resource.gd::GDScript::-1::1728210103::0::1::::<>Resource<>::
-::res://entities/hangar/::1728643618
+::res://entities/hangar/::1728654159
 hangar.gd::GDScript::-1::1728215692::0::1::::Hangar<>Board<>::
 hangar.tscn::PackedScene::7151644671205319278::1728215692::0::1::::<><>::uid://dmtv5egd6dmj7::::res://entities/board/board.tscn<>res://entities/hangar/hangar.gd<>res://entities/hangar/hangar_resource.gd
-hangar_resource.gd::GDScript::-1::1728643618::0::1::::HangarResource<>BoardResource<>::
+hangar_resource.gd::GDScript::-1::1728654159::0::1::::HangarResource<>BoardResource<>::
 ::res://entities/pattern/::1728081575
 pattern.json::JSON::-1::1727746657::0::1::::<><>::
-::res://entities/reward/::1728647565
-empty.tscn::PackedScene::8231930388033168389::1728647556::0::1::::<><>::
-reward_resource.gd::GDScript::-1::1728647556::0::1::::<>Resource<>::
+::res://entities/reward/::1728744274
+reward.gd::GDScript::-1::1728647592::0::1::::Reward<>PanelContainer<>::
+reward.tscn::PackedScene::8231930388033168389::1728744274::0::1::::<><>::res://entities/reward/reward.gd
+reward_resource.gd::GDScript::-1::1728655394::0::1::::RewardResource<>Resource<>::
 ::res://entities/slot/::1728082742
 slot.gd::GDScript::-1::1728082433::0::1::::Slot<>PanelContainer<>::
 slot.tscn::PackedScene::1587605845538051618::1728082742::0::1::::<><>::res://entities/slot/slot.gd
@@ -70,10 +72,10 @@ slot_resource.gd::GDScript::-1::1728080593::0::1::::SlotResource<>Resource<>::
 slot_compartment.gd::GDScript::-1::1728080962::0::1::::SlotCompartment<>Slot<>::
 slot_compartment.tscn::PackedScene::6312377026870583146::1728082742::0::1::::<><>::uid://wvbvvucr7xla::::res://entities/slot/slot.tscn<>res://entities/slot/compartment/slot_compartment.gd
 slot_compartment_resource.gd::GDScript::-1::1727742338::0::1::::SlotCompartmentResource<>SlotResource<>::
-::res://entities/statistic/::1728215165
+::res://entities/statistic/::1728744166
 statistic.gd::GDScript::-1::1728212712::0::1::::Statistic<>PanelContainer<>::
 statistic.tscn::PackedScene::3608667537409784522::1728215165::0::1::::<><>::res://entities/statistic/statistic.gd
-statistic_resource.gd::GDScript::-1::1728212951::0::1::::StatisticResource<>Resource<>::
+statistic_resource.gd::GDScript::-1::1728744166::0::1::::StatisticResource<>Resource<>::
 ::res://entities/token/::1728200303
 token.gd::GDScript::-1::1728200303::0::1::::Token<>TextureRect<>::
 token.tscn::PackedScene::1552558293137536665::1728200113::0::1::::<><>::res://entities/token/token.gd<>res://entities/token/token_resource.gd<>uid://33eqagvh85us::::res://assets/fonts/digital/Inter-Black.ttf
@@ -84,20 +86,20 @@ token_compartment.tscn::PackedScene::8450941275173163788::1728207303::0::1::::<>
 token_compartment_resource.gd::GDScript::-1::1728081531::0::1::::TokenCompartmentResource<>TokenResource<>::
 ::res://entities/token/images/::1728081684
 coin.png::CompressedTexture2D::5971527734147499551::1728081656::1728081684::1::::<><>::
-::res://entities/wagon/::1728641866
+::res://entities/wagon/::1728744184
 pattern.json::JSON::-1::1728563299::0::1::::<><>::
 wagon 2.json::JSON::-1::1727855402::0::1::::<><>::
 wagon.gd::GDScript::-1::1728215776::0::1::::Wagon<>Board<>::
 wagon.json::JSON::-1::1727862132::0::1::::<><>::
 wagon.tscn::PackedScene::4408444745845909942::1728215796::0::1::::<><>::uid://dmtv5egd6dmj7::::res://entities/board/board.tscn<>res://entities/wagon/wagon.gd<>uid://33eqagvh85us::::res://assets/fonts/digital/Inter-Black.ttf<>res://entities/wagon/wagon_resource.gd
-wagon_resource.gd::GDScript::-1::1728641866::0::1::::WagonResource<>BoardResource<>::
+wagon_resource.gd::GDScript::-1::1728744184::0::1::::WagonResource<>BoardResource<>::
 ::res://entities/world/::1728643629
 world.gd::GDScript::-1::1728643629::0::1::::World<>Node<>::
 world.tscn::PackedScene::8246655032211948728::1728207030::0::1::::<><>::res://entities/world/world.gd<>uid://do4xhwky8pgte::::res://entities/bourse/bourse.tscn
-::res://script/::1728645501
-Global.gd::GDScript::-1::1728645501::0::1::::<>Node<>::
-::res://shaders/::1728646890
-ant line.gdshader::Shader::-1::1728646890::0::1::::<><>::
-gradient effects.gdshader::Shader::-1::1728646890::0::1::::<><>::
-octagon.gdshader::Shader::-1::1728646890::0::1::::<><>::
-spider web.gdshader::Shader::-1::1728646890::0::1::::<><>::
+::res://script/::1728739634
+Global.gd::GDScript::-1::1728739634::0::1::::<>Node<>::
+::res://shaders/::1728744274
+ant line.gdshader::Shader::-1::1728744274::0::1::::<><>::
+gradient effects.gdshader::Shader::-1::1728744274::0::1::::<><>::
+octagon.gdshader::Shader::-1::1728744274::0::1::::<><>::
+spider web.gdshader::Shader::-1::1728744274::0::1::::<><>::
