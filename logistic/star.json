@@ -1,0 +1,67 @@
+[
+ {
+  "index": 0,
+  "type": "dwarf",
+  "subtype": "red",
+  "planetary limit": 3,
+  "next planet": 0.5,
+  "probability_self": 45,
+  "probability_gas giant": 20,
+  "probability_ice giant": 30,
+  "probability_terrestrial": 40,
+  "probability_dwarf": 10,
+  "probability_asteroid belt": 70
+ },
+ {
+  "index": 1,
+  "type": "dwarf",
+  "subtype": "white",
+  "planetary limit": 2,
+  "next planet": 0.25,
+  "probability_self": 25,
+  "probability_gas giant": 15,
+  "probability_ice giant": 10,
+  "probability_terrestrial": 50,
+  "probability_dwarf": 25,
+  "probability_asteroid belt": 40
+ },
+ {
+  "index": 2,
+  "type": "dwarf",
+  "subtype": "yellow",
+  "planetary limit": 3,
+  "next planet": 0.5,
+  "probability_self": 15,
+  "probability_gas giant": 25,
+  "probability_ice giant": 35,
+  "probability_terrestrial": 35,
+  "probability_dwarf": 5,
+  "probability_asteroid belt": 60
+ },
+ {
+  "index": 3,
+  "type": "giant",
+  "subtype": "red",
+  "planetary limit": 5,
+  "next planet": 0.7,
+  "probability_self": 10,
+  "probability_gas giant": 30,
+  "probability_ice giant": 40,
+  "probability_terrestrial": 20,
+  "probability_dwarf": 10,
+  "probability_asteroid belt": 25
+ },
+ {
+  "index": 4,
+  "type": "giant",
+  "subtype": "blue",
+  "planetary limit": 1,
+  "next planet": 0,
+  "probability_self": 5,
+  "probability_gas giant": 35,
+  "probability_ice giant": 25,
+  "probability_terrestrial": 25,
+  "probability_dwarf": 15,
+  "probability_asteroid belt": 15
+ }
+]

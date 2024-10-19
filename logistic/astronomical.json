@@ -1,0 +1,90 @@
+[
+ {
+  "index": 0,
+  "type": "planet",
+  "subtype": "gas giant",
+  "size min": 6000,
+  "size max": 10000,
+  "count min": 0,
+  "count max": 2,
+  "satellites min": 4,
+  "satellites max": 9,
+  "acronym": "GGP"
+ },
+ {
+  "index": 1,
+  "type": "planet",
+  "subtype": "ice giant",
+  "size min": 2000,
+  "size max": 4000,
+  "count min": 0,
+  "count max": 2,
+  "satellites min": 2,
+  "satellites max": 6,
+  "acronym": "IGP"
+ },
+ {
+  "index": 2,
+  "type": "planet",
+  "subtype": "terrestrial",
+  "size min": 500,
+  "size max": 1500,
+  "count min": 0,
+  "count max": 4,
+  "satellites min": 0,
+  "satellites max": 3,
+  "acronym": "TP"
+ },
+ {
+  "index": 3,
+  "type": "planet",
+  "subtype": "dwarf",
+  "size min": 300,
+  "size max": 700,
+  "count min": 0,
+  "count max": 3,
+  "satellites min": 0,
+  "satellites max": 1,
+  "acronym": "DP"
+ },
+ {
+  "index": 4,
+  "type": "satellite ",
+  "subtype": "gas giant",
+  "size min": 800,
+  "size max": 1600,
+  "acronym": "GGPS"
+ },
+ {
+  "index": 5,
+  "type": "satellite ",
+  "subtype": "ice giant",
+  "size min": 600,
+  "size max": 1200,
+  "acronym": "IGPS"
+ },
+ {
+  "index": 6,
+  "type": "satellite ",
+  "subtype": "terrestrial",
+  "size min": 400,
+  "size max": 800,
+  "acronym": "TPS"
+ },
+ {
+  "index": 7,
+  "type": "satellite ",
+  "subtype": "dwarf",
+  "size min": 200,
+  "size max": 400,
+  "acronym": "DPS"
+ },
+ {
+  "index": 8,
+  "type": "belt",
+  "subtype": "asteroid",
+  "size min": 4000,
+  "size max": 12000,
+  "acronym": "AB"
+ }
+]
